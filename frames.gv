@@ -1,0 +1,19 @@
+digraph G {
+"map" -> "uwb_anchor_7"[label="Broadcaster: /uwb_anchor_0x6e26\nAverage rate: 10.196 Hz\nMost recent transform: 1327.926 ( -0.054 sec old)\nBuffer length: 4.806 sec\n"];
+"odom" -> "base_footprint"[label="Broadcaster: /gazebo\nAverage rate: 30.209 Hz\nMost recent transform: 1327.856 ( 0.016 sec old)\nBuffer length: 4.833 sec\n"];
+"map" -> "uwb_anchor_4"[label="Broadcaster: /uwb_anchor_0x6e29\nAverage rate: 10.200 Hz\nMost recent transform: 1327.931 ( -0.059 sec old)\nBuffer length: 4.804 sec\n"];
+"map" -> "uwb_anchor_3"[label="Broadcaster: /uwb_anchor_0x6e30\nAverage rate: 10.191 Hz\nMost recent transform: 1327.937 ( -0.065 sec old)\nBuffer length: 4.808 sec\n"];
+"map" -> "uwb_anchor_0"[label="Broadcaster: /uwb_anchor_0x6e36\nAverage rate: 10.204 Hz\nMost recent transform: 1327.934 ( -0.062 sec old)\nBuffer length: 4.802 sec\n"];
+"map" -> "uwb_anchor_6"[label="Broadcaster: /uwb_anchor_0x6e27\nAverage rate: 10.196 Hz\nMost recent transform: 1327.939 ( -0.067 sec old)\nBuffer length: 4.806 sec\n"];
+"map" -> "uwb_anchor_1"[label="Broadcaster: /uwb_anchor_0x6e33\nAverage rate: 10.196 Hz\nMost recent transform: 1327.958 ( -0.086 sec old)\nBuffer length: 4.806 sec\n"];
+"map" -> "uwb_anchor_5"[label="Broadcaster: /uwb_anchor_0x6e28\nAverage rate: 10.196 Hz\nMost recent transform: 1327.967 ( -0.095 sec old)\nBuffer length: 4.806 sec\n"];
+"map" -> "uwb_anchor_2"[label="Broadcaster: /uwb_anchor_0x6e49\nAverage rate: 10.202 Hz\nMost recent transform: 1327.874 ( -0.002 sec old)\nBuffer length: 4.705 sec\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1327.872"[ shape=plaintext ] ;
+ }->"map";
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1327.872"[ shape=plaintext ] ;
+ }->"odom";
+}
