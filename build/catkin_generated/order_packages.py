@@ -2,4 +2,4 @@
 source_root_dir = '/home/himanshu/nav_sys/src'
 whitelisted_packages = ''.split(';') if '' != '' else []
 blacklisted_packages = ''.split(';') if '' != '' else []
-underlay_workspaces = '/opt/ros/melodic'.split(';') if '/opt/ros/melodic' != '' else []
+underlay_workspaces = '/home/himanshu/nav_sys/devel;/opt/ros/melodic'.split(';') if '/home/himanshu/nav_sys/devel;/opt/ros/melodic' != '' else []
