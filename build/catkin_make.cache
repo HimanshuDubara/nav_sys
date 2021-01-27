@@ -1,0 +1,2 @@
+
+-DCATKIN_DEVEL_PREFIX=/home/himanshu/nav_sys/devel -DCMAKE_INSTALL_PREFIX=/home/himanshu/nav_sys/install -G Unix Makefiles
