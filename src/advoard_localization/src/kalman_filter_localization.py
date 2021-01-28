@@ -151,6 +151,12 @@ def publish_data(pose_x,pose_y):
     robot_pos_.header.stamp = rospy.Time.now()
     robot_pos_.header.frame_id = "map"
     pub_.publish(robot_pos_)
+    br = tf.TransformBroadcaster()
+    br.sendTransform((robot_pos_.point.x, robot_pos_.point.y, 0),
+                     tf.transformations.quaternion_from_euler(0, 0, 0),
+                    robot_pos_.header.stamp,
+                     robot_pos_.header.frame_id,
+                     "localization_data_topic")
 
 
 def get_anchors_pos():
@@ -186,7 +192,7 @@ if __name__ == "__main__":
     odom_hz = int(r.get_hz('/' + odom_topic_name)[0])
     s.unregister()
 
-    rospy.Subscriber("odom", Odometry, subscribe_odom_data)
+    rospy.Subscriber("noisy_odom", Odometry, subscribe_odom_data)
     rospy.Subscriber("uwb_data_topic", uwb_data, subscribe_uwb_data)
 
     rospy.spin()

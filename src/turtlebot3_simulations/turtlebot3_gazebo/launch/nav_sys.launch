@@ -1,0 +1,12 @@
+<launch>
+<!-- Launch the turtlebot in Gazebo -->
+<include file="$(find turtlebot3_gazebo)/launch/turtlebot3_world.launch" />
+<!--Adding noise to odom -->
+<node name="noisy_odometry" pkg="advoard_localization" type="noisy_odom.py" args="--test" respawn="true" />
+
+<!--Launching the UWB sensors -->
+<include file="$(find pozyx_simulation)/launch/uwb_simulation_initializing.launch" />
+
+<!-- Launching the localization node -->
+<include file="$(find advoard_localization)/launch/uwb_initial_pose.launch" />
+</launch>
