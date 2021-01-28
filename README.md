@@ -5,6 +5,10 @@ For Localization (Code is in Master branch)
 Getting Turtlebot running:
 roslaunch turtlebot3_gazebo turtlebot3_world.launch
 
+To get the noisy odometry running :
+rosrun advoard_localization noisy_odom.py 
+
+
 Getting UWB sensors running:
 roslaunch pozyx_simulation uwb_simulation_initializing.launch
 
