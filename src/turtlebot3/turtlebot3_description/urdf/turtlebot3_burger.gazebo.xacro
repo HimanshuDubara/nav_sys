@@ -144,4 +144,303 @@
       </plugin>
   </gazebo>
 
+  <gazebo reference="ir_1">
+   <sensor type="ray" name="TeraRanger">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>50</update_rate>
+      <ray>
+         <scan>
+            <horizontal>
+               <samples>10</samples>
+               <resolution>1</resolution>
+               <min_angle>-0.14835</min_angle>
+               <max_angle>0.14835</max_angle>
+            </horizontal>
+            <vertical>
+               <samples>10</samples>
+               <resolution>1</resolution>
+               <min_angle>-0.14835</min_angle>
+               <max_angle>0.14835</max_angle>
+            </vertical>
+         </scan>
+         <range>
+            <min>0.01</min>
+            <max>2</max>
+            <resolution>0.02</resolution>
+         </range>
+      </ray>
+      <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
+         <gaussianNoise>0.005</gaussianNoise>
+         <alwaysOn>true</alwaysOn>
+         <updateRate>50</updateRate>
+         <topicName>sensor/ir_1</topicName>
+         <frameName>ir_1</frameName>
+         <radiation>INFRARED</radiation>
+         <fov>0.2967</fov>
+      </plugin>
+   </sensor>
+   </gazebo>
+
+     <gazebo reference="ir_2">
+      <sensor type="ray" name="TeraRanger">
+         <pose>0 0 0 0 0 0</pose>
+         <visualize>true</visualize>
+         <update_rate>50</update_rate>
+         <ray>
+            <scan>
+               <horizontal>
+                  <samples>10</samples>
+                  <resolution>1</resolution>
+                  <min_angle>-0.14835</min_angle>
+                  <max_angle>0.14835</max_angle>
+               </horizontal>
+               <vertical>
+                  <samples>10</samples>
+                  <resolution>1</resolution>
+                  <min_angle>-0.14835</min_angle>
+                  <max_angle>0.14835</max_angle>
+               </vertical>
+            </scan>
+            <range>
+               <min>0.01</min>
+               <max>2</max>
+               <resolution>0.02</resolution>
+            </range>
+         </ray>
+         <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
+            <gaussianNoise>0.005</gaussianNoise>
+            <alwaysOn>true</alwaysOn>
+            <updateRate>50</updateRate>
+            <topicName>sensor/ir_2</topicName>
+            <frameName>ir_2</frameName>
+            <radiation>INFRARED</radiation>
+            <fov>0.2967</fov>
+         </plugin>
+      </sensor>
+      </gazebo>
+      <gazebo reference="ir_3">
+       <sensor type="ray" name="TeraRanger">
+          <pose>0 0 0 0 0 0</pose>
+          <visualize>true</visualize>
+          <update_rate>50</update_rate>
+          <ray>
+             <scan>
+                <horizontal>
+                   <samples>10</samples>
+                   <resolution>1</resolution>
+                   <min_angle>-0.14835</min_angle>
+                   <max_angle>0.14835</max_angle>
+                </horizontal>
+                <vertical>
+                   <samples>10</samples>
+                   <resolution>1</resolution>
+                   <min_angle>-0.14835</min_angle>
+                   <max_angle>0.14835</max_angle>
+                </vertical>
+             </scan>
+             <range>
+                <min>0.01</min>
+                <max>2</max>
+                <resolution>0.02</resolution>
+             </range>
+          </ray>
+          <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
+             <gaussianNoise>0.005</gaussianNoise>
+             <alwaysOn>true</alwaysOn>
+             <updateRate>50</updateRate>
+             <topicName>sensor/ir_3</topicName>
+             <frameName>ir_3</frameName>
+             <radiation>INFRARED</radiation>
+             <fov>0.2967</fov>
+          </plugin>
+       </sensor>
+       </gazebo>
+       <gazebo reference="ir_4">
+        <sensor type="ray" name="TeraRanger">
+           <pose>0 0 0 0 0 0</pose>
+           <visualize>true</visualize>
+           <update_rate>50</update_rate>
+           <ray>
+              <scan>
+                 <horizontal>
+                    <samples>10</samples>
+                    <resolution>1</resolution>
+                    <min_angle>-0.14835</min_angle>
+                    <max_angle>0.14835</max_angle>
+                 </horizontal>
+                 <vertical>
+                    <samples>10</samples>
+                    <resolution>1</resolution>
+                    <min_angle>-0.14835</min_angle>
+                    <max_angle>0.14835</max_angle>
+                 </vertical>
+              </scan>
+              <range>
+                 <min>0.01</min>
+                 <max>2</max>
+                 <resolution>0.02</resolution>
+              </range>
+           </ray>
+           <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
+              <gaussianNoise>0.005</gaussianNoise>
+              <alwaysOn>true</alwaysOn>
+              <updateRate>50</updateRate>
+              <topicName>sensor/ir_4</topicName>
+              <frameName>ir_4</frameName>
+              <radiation>INFRARED</radiation>
+              <fov>0.2967</fov>
+           </plugin>
+        </sensor>
+        </gazebo>
+
+       <gazebo reference="ir_5">
+           <sensor type="ray" name="TeraRanger">
+              <pose>0 0 0 0 0 0</pose>
+              <visualize>true</visualize>
+              <update_rate>50</update_rate>
+              <ray>
+                 <scan>
+                    <horizontal>
+                       <samples>10</samples>
+                       <resolution>1</resolution>
+                       <min_angle>-0.14835</min_angle>
+                       <max_angle>0.14835</max_angle>
+                    </horizontal>
+                    <vertical>
+                       <samples>10</samples>
+                       <resolution>1</resolution>
+                       <min_angle>-0.14835</min_angle>
+                       <max_angle>0.14835</max_angle>
+                    </vertical>
+                 </scan>
+                 <range>
+                    <min>0.01</min>
+                    <max>2</max>
+                    <resolution>0.02</resolution>
+                 </range>
+              </ray>
+              <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
+                 <gaussianNoise>0.005</gaussianNoise>
+                 <alwaysOn>true</alwaysOn>
+                 <updateRate>50</updateRate>
+                 <topicName>sensor/ir_5</topicName>
+                 <frameName>ir_5</frameName>
+                 <radiation>INFRARED</radiation>
+                 <fov>0.2967</fov>
+              </plugin>
+           </sensor>
+           </gazebo>
+           <gazebo reference="ir_6">
+            <sensor type="ray" name="TeraRanger">
+               <pose>0 0 0 0 0 0</pose>
+               <visualize>true</visualize>
+               <update_rate>50</update_rate>
+               <ray>
+                  <scan>
+                     <horizontal>
+                        <samples>10</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-0.14835</min_angle>
+                        <max_angle>0.14835</max_angle>
+                     </horizontal>
+                     <vertical>
+                        <samples>10</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-0.14835</min_angle>
+                        <max_angle>0.14835</max_angle>
+                     </vertical>
+                  </scan>
+                  <range>
+                     <min>0.01</min>
+                     <max>2</max>
+                     <resolution>0.02</resolution>
+                  </range>
+               </ray>
+               <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
+                  <gaussianNoise>0.005</gaussianNoise>
+                  <alwaysOn>true</alwaysOn>
+                  <updateRate>50</updateRate>
+                  <topicName>sensor/ir_6</topicName>
+                  <frameName>ir_6</frameName>
+                  <radiation>INFRARED</radiation>
+                  <fov>0.2967</fov>
+               </plugin>
+            </sensor>
+            </gazebo>
+         <gazebo reference="ir_7">
+             <sensor type="ray" name="TeraRanger">
+                <pose>0 0 0 0 0 0</pose>
+                <visualize>true</visualize>
+                <update_rate>50</update_rate>
+                <ray>
+                   <scan>
+                      <horizontal>
+                         <samples>10</samples>
+                         <resolution>1</resolution>
+                         <min_angle>-0.14835</min_angle>
+                         <max_angle>0.14835</max_angle>
+                      </horizontal>
+                      <vertical>
+                         <samples>10</samples>
+                         <resolution>1</resolution>
+                         <min_angle>-0.14835</min_angle>
+                         <max_angle>0.14835</max_angle>
+                      </vertical>
+                   </scan>
+                   <range>
+                      <min>0.01</min>
+                      <max>2</max>
+                      <resolution>0.02</resolution>
+                   </range>
+                </ray>
+                <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
+                   <gaussianNoise>0.005</gaussianNoise>
+                   <alwaysOn>true</alwaysOn>
+                   <updateRate>50</updateRate>
+                   <topicName>sensor/ir_7</topicName>
+                   <frameName>ir_7</frameName>
+                   <radiation>INFRARED</radiation>
+                   <fov>0.2967</fov>
+                </plugin>
+             </sensor>
+             </gazebo>
+             <gazebo reference="ir_8">
+              <sensor type="ray" name="TeraRanger">
+                 <pose>0 0 0 0 0 0</pose>
+                 <visualize>true</visualize>
+                 <update_rate>50</update_rate>
+                 <ray>
+                    <scan>
+                       <horizontal>
+                          <samples>10</samples>
+                          <resolution>1</resolution>
+                          <min_angle>-0.14835</min_angle>
+                          <max_angle>0.14835</max_angle>
+                       </horizontal>
+                       <vertical>
+                          <samples>10</samples>
+                          <resolution>1</resolution>
+                          <min_angle>-0.14835</min_angle>
+                          <max_angle>0.14835</max_angle>
+                       </vertical>
+                    </scan>
+                    <range>
+                       <min>0.01</min>
+                       <max>2</max>
+                       <resolution>0.02</resolution>
+                    </range>
+                 </ray>
+                 <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
+                    <gaussianNoise>0.005</gaussianNoise>
+                    <alwaysOn>true</alwaysOn>
+                    <updateRate>50</updateRate>
+                    <topicName>sensor/ir_8</topicName>
+                    <frameName>ir_8</frameName>
+                    <radiation>INFRARED</radiation>
+                    <fov>0.2967</fov>
+                 </plugin>
+              </sensor>
+              </gazebo>
+
 </robot>
