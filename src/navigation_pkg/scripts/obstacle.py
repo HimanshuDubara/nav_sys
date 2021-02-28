@@ -163,6 +163,7 @@ class Obstacle:
         abs_front.header.stamp = rospy.Time.now()
         abs_front.header.frame_id = "map"
         pub1.publish(abs_front)
+        print("Published abs_front")
 
 
         abs_back.pose.pose.position.x = self.back_pose[0]
@@ -171,26 +172,28 @@ class Obstacle:
         abs_back.header.stamp = rospy.Time.now()
         abs_back.header.frame_id = "map"
         pub2.publish(abs_back)
+        print("Published abs_back")
 
 if __name__ == '__main__':
     rospy.init_node('obstacle',anonymous=True)
 
     obs = Obstacle()
 
-    rospy.Subscriber('/sensor/ir_1', Range , obs.ir1_callback)
-    rospy.Subscriber('/sensor/ir_2', Range , obs.ir2_callback)
-    rospy.Subscriber('/sensor/ir_3', Range , obs.ir3_callback)
-    rospy.Subscriber('/sensor/ir_4', Range , obs.ir4_callback)
-    rospy.Subscriber('/sensor/ir_5', Range , obs.ir5_callback)
-    rospy.Subscriber('/sensor/ir_6', Range , obs.ir6_callback)
-    rospy.Subscriber('/sensor/ir_7', Range , obs.ir7_callback)
-    rospy.Subscriber('/sensor/ir_8', Range , obs.ir8_callback)
-    rospy.Subscriber('/localization_data_topic', Odometry , obs.bot_pose)
-    pub1 = rospy.Publisher('/abs_front_obs', Odometry, queue_size=1)
-    pub2 = rospy.Publisher('/abs_back_obs',Odometry,queue_size = 1)
-    obs.front_object_position()
-    obs.back_object_position()
-    obs.publish_values()
+    while not rospy.is_shutdown():
+        rospy.Subscriber('/sensor/ir_1', Range , obs.ir1_callback)
+        rospy.Subscriber('/sensor/ir_2', Range , obs.ir2_callback)
+        rospy.Subscriber('/sensor/ir_3', Range , obs.ir3_callback)
+        rospy.Subscriber('/sensor/ir_4', Range , obs.ir4_callback)
+        rospy.Subscriber('/sensor/ir_5', Range , obs.ir5_callback)
+        rospy.Subscriber('/sensor/ir_6', Range , obs.ir6_callback)
+        rospy.Subscriber('/sensor/ir_7', Range , obs.ir7_callback)
+        rospy.Subscriber('/sensor/ir_8', Range , obs.ir8_callback)
+        rospy.Subscriber('/localization_data_topic', Odometry , obs.bot_pose)
+        pub1 = rospy.Publisher('/abs_front_obs', Odometry, queue_size=1)
+        pub2 = rospy.Publisher('/abs_back_obs',Odometry,queue_size = 1)
+        obs.front_object_position()
+        obs.back_object_position()
+        obs.publish_values()
 
 
-    rospy.spin()
+    
