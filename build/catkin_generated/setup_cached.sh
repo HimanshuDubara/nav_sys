@@ -7,4 +7,9 @@
 # new environment variables
 
 # modified environment variables
+export CMAKE_PREFIX_PATH="/home/himanshu/nav_sys/devel:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/home/himanshu/nav_sys/devel/lib:$LD_LIBRARY_PATH"
 export PWD='/home/himanshu/nav_sys/build'
+export PYTHONPATH="/home/himanshu/nav_sys/devel/lib/python2.7/dist-packages:$PYTHONPATH"
+export ROSLISP_PACKAGE_DIRECTORIES='/home/himanshu/nav_sys/devel/share/common-lisp'
+export ROS_PACKAGE_PATH="/home/himanshu/nav_sys/src:$ROS_PACKAGE_PATH"
