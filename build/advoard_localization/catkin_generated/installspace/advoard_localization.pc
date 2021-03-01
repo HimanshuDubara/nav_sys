@@ -1,8 +1,0 @@
-prefix=/home/himanshu/nav_sys/install
-
-Name: advoard_localization
-Description: Description of advoard_localization
-Version: 0.0.1
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
