@@ -1,5 +1,5 @@
 # nav_sys
-For Localization (Code is in Master branch)
+For Localization (Code is in main branch)
 
 Getting Turtlebot running: roslaunch turtlebot3_gazebo turtlebot3_world.launch
 
