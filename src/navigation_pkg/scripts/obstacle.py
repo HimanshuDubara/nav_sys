@@ -1,48 +1,16 @@
 #! /usr/bin/env python
 import rospy
 
-from nav_msgs.msg import Odometry
+
 from sensor_msgs.msg import Range
 import numpy as np
 import math
-
-
+from geometry_msgs.msg import PointStamped
+import tf
 
 
 
 class Obstacle:
-    def __init__(self):
-        #define variables to handle ir messages
-        ir_1_dist = Range()
-        ir_2_dist = Range()
-        ir_3_dist = Range()
-        ir_4_dist = Range()
-        ir_5_dist = Range()
-        ir_6_dist = Range()
-        ir_7_dist = Range()
-        ir_8_dist = Range()
-        bot_pose = Odometry()#Bot's position to be read as a Subscriber topic
-        ir_1_angle = -0.2627
-        ir_2_angle = 0.2627
-        ir_3_angle = 0.5263
-        ir_4_angle = -0.5263
-        ir_5_angle =  1.5708
-        ir_6_angle = -1.5708
-        ir_7_angle = -2.879
-        ir_8_angle = 2.879
-        ir_1_pose = [0.09093, -0.02625]
-        ir_2_pose = [0.09093, 0.02625]
-        ir_3_pose = [0.0525, 0.09093]
-        ir_4_pose = [0.0525, -0.09093]
-        ir_5_pose = [0.0, 0.105]
-        ir_6_pose = [0.0, -0.105]
-        ir_7_pose = [-0.15, -0.02625]
-        ir_8_pose = [-0.15, 0.02625]
-        front_pose = [0,0]
-        back_pose = [0,0]
-
-
-
     def __init__(self):
         self.ir_1_dist = Range()
         self.ir_2_dist = Range()
@@ -52,7 +20,7 @@ class Obstacle:
         self.ir_6_dist = Range()
         self.ir_7_dist = Range()
         self.ir_8_dist = Range()
-        self.bot_pose = Odometry()#Bot's position to be read as a Subscriber topic
+        self.bot_pose = PointStamped()#Bot's position to be read as a Subscriber topic
         self.ir_1_angle = -0.2627
         self.ir_2_angle = 0.2627
         self.ir_3_angle = 0.5263
@@ -105,74 +73,75 @@ class Obstacle:
         #Get ir_8 message
         self.ir_8_dist = msg
 
-    def bot_pose(self,msg):
+    def botpose(self,msg):
         #Get bot position
         self.bot_pose = msg
 
 
-#(1+dist) is used as weight to avoid blowing the pose out of proportion, as dist can be <1
+#exp(dist) used as Weight
     def front_object_position(self):
+        abs_range = 0
         if self.ir_1_dist.range <=0.15:#Considering only of distance is less than 0.15m
-            self.front_pose[0] = (self.front_pose[0] + self.ir_1_dist.range*(math.cos(self.ir_1_angle)) + self.ir_1_pose[0] )/(1+self.ir_1_dist.range) #Weighted according to the distance
-            self.front_pose[1] = (self.front_pose[1] + self.ir_1_dist.range*(math.sin(self.ir_1_angle)) + self.ir_1_pose[1])/(1+self.ir_1_dist.range) #Weighted according to the distance
-
+            self.front_pose[0] = (self.front_pose[0] + self.ir_1_dist.range*(math.cos(self.ir_1_angle)) + self.ir_1_pose[0] )/(math.exp(self.ir_1_dist.range)) #Weighted according to the distance
+            self.front_pose[1] = (self.front_pose[1] + self.ir_1_dist.range*(math.sin(self.ir_1_angle)) + self.ir_1_pose[1])/(math.exp(self.ir_1_dist.range)) #Weighted according to the distance
+            abs_range = abs_range + self.ir_1_dist.range
         if self.ir_2_dist.range <=0.15:#Considering only of distance is less than 0.15m
-                self.front_pose[0] = (self.front_pose[0] + self.ir_2_dist.range*(math.cos(self.ir_2_angle)) + self.ir_2_pose[0])/(1+self.ir_2_dist.range)  #Weighted according to the distance
-                self.front_pose[1] = (self.front_pose[1] + self.ir_2_dist.range*(math.sin(self.ir_2_angle)) + self.ir_2_pose[1])/(1+self.ir_2_dist.range) #Weighted according to the distance
-
+                self.front_pose[0] = (self.front_pose[0] + self.ir_2_dist.range*(math.cos(self.ir_2_angle)) + self.ir_2_pose[0])/(math.exp(self.ir_2_dist.range))  #Weighted according to the distance
+                self.front_pose[1] =(self.front_pose[1] + self.ir_2_dist.range*(math.sin(self.ir_2_angle)) + self.ir_2_pose[1])/(math.exp(self.ir_2_dist.range)) #Weighted according to the distance
+                abs_range = abs_range + self.ir_2_dist.range
         if self.ir_3_dist.range <=0.15:#Considering only of distance is less than 0.15m
-                    self.front_pose[0] = (self.front_pose[0] + self.ir_3_dist.range*(math.cos(self.ir_3_angle)) + self.ir_3_pose[0])/(1+self.ir_3_dist.range) #Weighted according to the distance
-                    self.front_pose[1] = (self.front_pose[1] + self.ir_3_dist.range*(math.sin(self.ir_3_angle)) + self.ir_3_pose[1])/(1+self.ir_3_dist.range) #Weighted according to the distance
-
+                    self.front_pose[0] = (self.front_pose[0] + self.ir_3_dist.range*(math.cos(self.ir_3_angle)) + self.ir_3_pose[0])/(math.exp(self.ir_3_dist.range)) #Weighted according to the distance
+                    self.front_pose[1] = (self.front_pose[1] + self.ir_3_dist.range*(math.sin(self.ir_3_angle)) + self.ir_3_pose[1])/(math.exp(self.ir_3_dist.range)) #Weighted according to the distance
+                    abs_range = abs_range + self.ir_3_dist.range
         if self.ir_4_dist.range <=0.15:#Considering only of distance is less than 0.15m
-                    self.front_pose[0] = (self.front_pose[0] + self.ir_4_dist.range*(math.cos(self.ir_4_angle)) + self.ir_4_pose[0])/(1+self.ir_4_dist.range) #Weighted according to the distance
-                    self.front_pose[1] = (self.front_pose[1] + self.ir_4_dist.range*(math.sin(self.ir_4_angle)) + self.ir_4_pose[1])/(1+self.ir_4_dist.range)  #Weighted according to the distance
-
-        if self.ir_5_dist.range <=0.15:#Considering only of distance is less than 0.15m
-                    self.front_pose[0] = (self.front_pose[0] + self.ir_5_dist.range*(math.cos(self.ir_5_angle)) + self.ir_5_pose[0])/(1+self.ir_5_dist.range) #Weighted according to the distance
-                    self.front_pose[1] = (self.front_pose[1] + self.ir_5_dist.range*(math.sin(self.ir_5_angle)) + self.ir_5_pose[1])/(1+self.ir_5_dist.range) #Weighted according to the distance
-
-        if self.ir_6_dist.range <=0.15:#Considering only of distance is less than 0.15m
-                    self.front_pose[0] = (self.front_pose[0] + self.ir_6_dist.range*(math.cos(self.ir_6_angle)) + self.ir_6_pose[0])/(1+self.ir_6_dist.range) #Weighted according to the distance
-                    self.front_pose[1] = (self.front_pose[1] + self.ir_6_dist.range*(math.sin(self.ir_6_angle)) + self.ir_6_pose[1])/(1+self.ir_6_dist.range) #Weighted according to the distance
-
-        #Adding bot position
-        self.front_pose[0] = self.front_pose[0] + self.bot_pose.pose.pose.position.x
-        self.front_pose[1] = self.front_pose[1] + self.bot_pose.pose.pose.position.y
+                    self.front_pose[0] = (self.front_pose[0] + self.ir_4_dist.range*(math.cos(self.ir_4_angle)) + self.ir_4_pose[0])/(math.exp(self.ir_4_dist.range)) #Weighted according to the distance
+                    self.front_pose[1] = (self.front_pose[1] + self.ir_4_dist.range*(math.sin(self.ir_4_angle)) + self.ir_4_pose[1])/(math.exp(self.ir_4_dist.range))  #Weighted according to the distance
+                    abs_range = abs_range + self.ir_4_dist.range
+        #if self.ir_5_dist.range <=0.15:#Considering only of distance is less than 0.15m
+        #            self.front_pose[0] = (self.front_pose[0] + self.ir_5_dist.range*(math.cos(self.ir_5_angle)) + self.ir_5_pose[0])/(math.exp(self.ir_5_dist.range)) #Weighted according to the distance
+        #            self.front_pose[1] = (self.front_pose[1] + self.ir_5_dist.range*(math.sin(self.ir_5_angle)) + self.ir_5_pose[1])/(math.exp(self.ir_5_dist.range)) #Weighted according to the distance
+        #            abs_range = abs_range + self.ir_5_dist.range
+        #if self.ir_6_dist.range <=0.15:#Considering only of distance is less than 0.15m
+        #            self.front_pose[0] = (self.front_pose[0] + self.ir_6_dist.range*(math.cos(self.ir_6_angle)) + self.ir_6_pose[0])/(math.exp(self.ir_6_dist.range)) #Weighted according to the distance
+        #            self.front_pose[1] = (self.front_pose[1] + self.ir_6_dist.range*(math.sin(self.ir_6_angle)) + self.ir_6_pose[1])/(math.exp(self.ir_6_dist.range)) #Weighted according to the distance
+        #            abs_range = abs_range + self.ir_6_dist.range
+        #Getting COM of the obstacle locations
+        self.front_pose[0] = self.front_pose[0]
+        self.front_pose[1] = self.front_pose[1]
 
     def back_object_position(self):
+        abs_range = 0
         if self.ir_7_dist.range <=0.15:#Considering only of distance is less than 0.15m
-            self.back_pose[0] = (self.back_pose[0] + self.ir_7_dist.range*(math.cos(self.ir_7_angle)) + self.ir_7_pose[0])/(1+self.ir_7_dist.range)  #Weighted according to the distance
-            self.back_pose[1] = (self.back_pose[1] + self.ir_7_dist.range*(math.sin(self.ir_7_angle)) + self.ir_7_pose[1])/(1+self.ir_7_dist.range) #Weighted according to the distance
-
+                    self.back_pose[0] = (self.front_pose[0] + self.ir_7_dist.range*(math.cos(self.ir_7_angle)) + self.ir_7_pose[0])/(math.exp(self.ir_7_dist.range)) #Weighted according to the distance
+                    self.back_pose[1] = (self.front_pose[1] + self.ir_7_dist.range*(math.sin(self.ir_7_angle)) + self.ir_7_pose[1])/(math.exp(self.ir_7_dist.range)) #Weighted according to the distance
+                    abs_range = abs_range + self.ir_7_dist.range
         if self.ir_8_dist.range <=0.15:#Considering only of distance is less than 0.15m
-                self.back_pose[0] = (self.back_pose[0] + self.ir_8_dist.range*(math.cos(self.ir_8_angle)) + self.ir_8_pose[0])/(1+self.ir_8_dist.range) #Weighted according to the distance
-                self.back_pose[1] = (self.back_pose[1] + self.ir_8_dist.range*(math.sin(self.ir_8_angle)) + self.ir_8_pose[1])/(1+self.ir_8_dist.range)  #Weighted according to the distance
-
-        #Adding bot position
-        self.back_pose[0] = self.back_pose[0] + self.bot_pose.pose.pose.position.x
-        self.back_pose[1] = self.back_pose[1] + self.bot_pose.pose.pose.position.y
+                    self.back_pose[0] = (self.front_pose[0] + self.ir_8_dist.range*(math.cos(self.ir_8_angle)) + self.ir_8_pose[0])/(math.exp(self.ir_8_dist.range)) #Weighted according to the distance
+                    self.back_pose[1] = (self.front_pose[1] + self.ir_8_dist.range*(math.sin(self.ir_8_angle)) + self.ir_8_pose[1])/(math.exp(self.ir_8_dist.range)) #Weighted according to the distance
+                    abs_range = abs_range + self.ir_8_dist.range
+        #Getting COM of the obstacle locations
+        self.back_pose[0] = self.back_pose[0]
+        self.back_pose[1] = self.back_pose[1]
 
     def publish_values(self):
-        abs_front = Odometry()
-        abs_back = Odometry()
+        abs_front = PointStamped()
+        abs_front.point.x = float(self.front_pose[0])
+        abs_front.point.y = float(self.front_pose[1])
+        abs_front.point.z = 0.096
 
-        abs_front.pose.pose.position.x = self.front_pose[0]
-        abs_front.pose.pose.position.y = self.front_pose[1]
-        abs_front.pose.pose.position.z = 0.096
         abs_front.header.stamp = rospy.Time.now()
         abs_front.header.frame_id = "map"
         pub1.publish(abs_front)
-        print("Published abs_front")
 
+        abs_back = PointStamped()
+        abs_back.point.x = float(self.back_pose[0])
+        abs_back.point.y = float(self.back_pose[1])
+        abs_back.point.z = 0.096
 
-        abs_back.pose.pose.position.x = self.back_pose[0]
-        abs_back.pose.pose.position.y = self.back_pose[1]
-        abs_back.pose.pose.position.z = 0.096
         abs_back.header.stamp = rospy.Time.now()
         abs_back.header.frame_id = "map"
         pub2.publish(abs_back)
-        print("Published abs_back")
+
 
 if __name__ == '__main__':
     rospy.init_node('obstacle',anonymous=True)
@@ -188,12 +157,9 @@ if __name__ == '__main__':
         rospy.Subscriber('/sensor/ir_6', Range , obs.ir6_callback)
         rospy.Subscriber('/sensor/ir_7', Range , obs.ir7_callback)
         rospy.Subscriber('/sensor/ir_8', Range , obs.ir8_callback)
-        rospy.Subscriber('/localization_data_topic', Odometry , obs.bot_pose)
-        pub1 = rospy.Publisher('/abs_front_obs', Odometry, queue_size=1)
-        pub2 = rospy.Publisher('/abs_back_obs',Odometry,queue_size = 1)
+        rospy.Subscriber('/localization_data_topic', PointStamped , obs.botpose)
+        pub1 = rospy.Publisher('/abs_front_obs', PointStamped, queue_size=10)
+        pub2 = rospy.Publisher('/abs_back_obs',PointStamped,queue_size = 10)
         obs.front_object_position()
         obs.back_object_position()
         obs.publish_values()
-
-
-    
