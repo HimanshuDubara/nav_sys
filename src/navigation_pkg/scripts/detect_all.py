@@ -37,8 +37,8 @@ class Obstacle:
         self.front_pose = [0,0]
         self.back_pose = [0,0]
 
-        self.ir_array = np.zeroes((9,2))
-        self.abs_range = np.zeroes((9,1))
+        self.ir_array = np.zeros((9,2))
+        self.abs_range = np.zeros((9,1))
 
     def ir1_callback(self,msg):
         #Get ir_1 message
@@ -81,57 +81,57 @@ class Obstacle:
     def detect_ir1(self):
         abs_range = 0
         # if self.ir_1_dist.range <=0.15(self):#Considering only of distance is less than 0.15m
-        self.ir_array[1][0] = (self.front_pose[0] + self.ir_1_dist.range*(math.cos(self.ir_1_angle)) + self.ir_1_pose[0] )/(math.exp(self.ir_1_dist.range)) #Weighted according to the distance
-        self.ir_array[1][1] = (self.front_pose[1] + self.ir_1_dist.range*(math.sin(self.ir_1_angle)) + self.ir_1_pose[1])/(math.exp(self.ir_1_dist.range)) #Weighted according to the distance
+        self.ir_array[1][0] = (self.front_pose[0] + self.ir_1_dist.range*(math.cos(self.ir_1_angle)) + self.ir_1_pose[0] ) #Weighted according to the distance
+        self.ir_array[1][1] = (self.front_pose[1] + self.ir_1_dist.range*(math.sin(self.ir_1_angle)) + self.ir_1_pose[1]) #Weighted according to the distance
         self.abs_range[1][0] = self.abs_range[1][0] + self.ir_1_dist.range
 
     def detect_ir2(self):
         abs_range = 0
         # if self.ir_1_dist.range <=0.15(self):#Considering only of distance is less than 0.15m
-        self.ir_array[2][0] = (self.front_pose[0] + self.ir_2_dist.range*(math.cos(self.ir_2_angle)) + self.ir_2_pose[0] )/(math.exp(self.ir_2_dist.range)) #Weighted according to the distance
-        self.ir_array[2][1] = (self.front_pose[1] + self.ir_2_dist.range*(math.sin(self.ir_2_angle)) + self.ir_2_pose[1])/(math.exp(self.ir_2_dist.range)) #Weighted according to the distance
+        self.ir_array[2][0] = (self.front_pose[0] + self.ir_2_dist.range*(math.cos(self.ir_2_angle)) + self.ir_2_pose[0] ) #Weighted according to the distance
+        self.ir_array[2][1] = (self.front_pose[1] + self.ir_2_dist.range*(math.sin(self.ir_2_angle)) + self.ir_2_pose[1]) #Weighted according to the distance
         self.abs_range[2][0] = self.abs_range[2][0] + self.ir_2_dist.range
 
     def detect_ir3(self):
         abs_range = 0
         # if self.ir_1_dist.range <=0.15(self):#Considering only of distance is less than 0.15m
-        self.ir_array[3][0] = (self.front_pose[0] + self.ir_3_dist.range*(math.cos(self.ir_3_angle)) + self.ir_3_pose[0] )/(math.exp(self.ir_3_dist.range)) #Weighted according to the distance
-        self.ir_array[3][1] = (self.front_pose[1] + self.ir_3_dist.range*(math.sin(self.ir_3_angle)) + self.ir_3_pose[1])/(math.exp(self.ir_3_dist.range)) #Weighted according to the distance
+        self.ir_array[3][0] = (self.front_pose[0] + self.ir_3_dist.range*(math.cos(self.ir_3_angle)) + self.ir_3_pose[0] ) #Weighted according to the distance
+        self.ir_array[3][1] = (self.front_pose[1] + self.ir_3_dist.range*(math.sin(self.ir_3_angle)) + self.ir_3_pose[1]) #Weighted according to the distance
         self.abs_range[3][0] = self.abs_range[3][0] + self.ir_3_dist.range
 
     def detect_ir4(self):
         abs_range = 0
         # if self.ir_1_dist.range <=0.15(self):#Considering only of distance is less than 0.15m
-        self.ir_array[4][0] = (self.front_pose[0] + self.ir_4_dist.range*(math.cos(self.ir_4_angle)) + self.ir_4_pose[0] )/(math.exp(self.ir_4_dist.range)) #Weighted according to the distance
-        self.ir_array[4][1] = (self.front_pose[1] + self.ir_4_dist.range*(math.sin(self.ir_4_angle)) + self.ir_4_pose[1])/(math.exp(self.ir_4_dist.range)) #Weighted according to the distance
+        self.ir_array[4][0] = (self.front_pose[0] + self.ir_4_dist.range*(math.cos(self.ir_4_angle)) + self.ir_4_pose[0] ) #Weighted according to the distance
+        self.ir_array[4][1] = (self.front_pose[1] + self.ir_4_dist.range*(math.sin(self.ir_4_angle)) + self.ir_4_pose[1]) #Weighted according to the distance
         self.abs_range[4][0] = self.abs_range[4][0] + self.ir_4_dist.range
 
     def detect_ir5(self):
         abs_range = 0
         # if self.ir_1_dist.range <=0.15(self):#Considering only of distance is less than 0.15m
-        self.ir_array[5][0] = (self.front_pose[0] + self.ir_5_dist.range*(math.cos(self.ir_5_angle)) + self.ir_5_pose[0] )/(math.exp(self.ir_5_dist.range)) #Weighted according to the distance
-        self.ir_array[5][1] = (self.front_pose[1] + self.ir_5_dist.range*(math.sin(self.ir_5_angle)) + self.ir_5_pose[1])/(math.exp(self.ir_5_dist.range)) #Weighted according to the distance
+        self.ir_array[5][0] = (self.front_pose[0] + self.ir_5_dist.range*(math.cos(self.ir_5_angle)) + self.ir_5_pose[0] ) #Weighted according to the distance
+        self.ir_array[5][1] = (self.front_pose[1] + self.ir_5_dist.range*(math.sin(self.ir_5_angle)) + self.ir_5_pose[1]) #Weighted according to the distance
         self.abs_range[5][0] = self.abs_range[5][0] + self.ir_5_dist.range
 
     def detect_ir6(self):
         abs_range = 0
         # if self.ir_1_dist.range <=0.15(self):#Considering only of distance is less than 0.15m
-        self.ir_array[6][0] = (self.front_pose[0] + self.ir_6_dist.range*(math.cos(self.ir_6_angle)) + self.ir_6_pose[0] )/(math.exp(self.ir_6_dist.range)) #Weighted according to the distance
-        self.ir_array[6][1] = (self.front_pose[1] + self.ir_6_dist.range*(math.sin(self.ir_6_angle)) + self.ir_6_pose[1])/(math.exp(self.ir_6_dist.range)) #Weighted according to the distance
+        self.ir_array[6][0] = (self.front_pose[0] + self.ir_6_dist.range*(math.cos(self.ir_6_angle)) + self.ir_6_pose[0] ) #Weighted according to the distance
+        self.ir_array[6][1] = (self.front_pose[1] + self.ir_6_dist.range*(math.sin(self.ir_6_angle)) + self.ir_6_pose[1]) #Weighted according to the distance
         self.abs_range[6][0] = self.abs_range[6][0] + self.ir_6_dist.range
 
     def detect_ir7(self):
         abs_range = 0
         # if self.ir_1_dist.range <=0.15(self):#Considering only of distance is less than 0.15m
-        self.ir_array[7][0] = (self.front_pose[0] + self.ir_7_dist.range*(math.cos(self.ir_7_angle)) + self.ir_7_pose[0] )/(math.exp(self.ir_7_dist.range)) #Weighted according to the distance
-        self.ir_array[7][1] = (self.front_pose[1] + self.ir_7_dist.range*(math.sin(self.ir_7_angle)) + self.ir_7_pose[1])/(math.exp(self.ir_7_dist.range)) #Weighted according to the distance
+        self.ir_array[7][0] = (self.front_pose[0] + self.ir_7_dist.range*(math.cos(self.ir_7_angle)) + self.ir_7_pose[0] ) #Weighted according to the distance
+        self.ir_array[7][1] = (self.front_pose[1] + self.ir_7_dist.range*(math.sin(self.ir_7_angle)) + self.ir_7_pose[1]) #Weighted according to the distance
         self.abs_range[7][0] = self.abs_range[7][0] + self.ir_7_dist.range
 
     def detect_ir8(self):
         abs_range = 0
         # if self.ir_1_dist.range <=0.15:#Considering only of distance is less than 0.15m
-        self.ir_array[8][0] = (self.front_pose[0] + self.ir_8_dist.range*(math.cos(self.ir_8_angle)) + self.ir_8_pose[0] )/(math.exp(self.ir_8_dist.range)) #Weighted according to the distance
-        self.ir_array[8][1] = (self.front_pose[1] + self.ir_8_dist.range*(math.sin(self.ir_8_angle)) + self.ir_8_pose[1])/(math.exp(self.ir_8_dist.range)) #Weighted according to the distance
+        self.ir_array[8][0] = (self.front_pose[0] + self.ir_8_dist.range*(math.cos(self.ir_8_angle)) + self.ir_8_pose[0] ) #Weighted according to the distance
+        self.ir_array[8][1] = (self.front_pose[1] + self.ir_8_dist.range*(math.sin(self.ir_8_angle)) + self.ir_8_pose[1]) #Weighted according to the distance
         self.abs_range[8][0] = self.abs_range[8][0] + self.ir_8_dist.range
 
     def read_all_ir(self):
@@ -194,7 +194,7 @@ class Obstacle:
         ir1_sensor.point.y = float(self.ir_array[1][1])
         ir1_sensor.point.z = 0.096
         ir1_sensor.header.stamp = rospy.Time.now()
-        ir1_sensor.header.frame_id = "map"
+        ir1_sensor.header.frame_id = "localization_data_topic"
         pub1.publish(ir1_sensor)
 
         ir2_sensor = PointStamped()
@@ -202,7 +202,7 @@ class Obstacle:
         ir2_sensor.point.y = float(self.ir_array[2][1])
         ir2_sensor.point.z = 0.096
         ir2_sensor.header.stamp = rospy.Time.now()
-        ir2_sensor.header.frame_id = "map"
+        ir2_sensor.header.frame_id = "localization_data_topic"
         pub2.publish(ir2_sensor)
 
         ir3_sensor = PointStamped()
@@ -210,7 +210,7 @@ class Obstacle:
         ir3_sensor.point.y = float(self.ir_array[3][1])
         ir3_sensor.point.z = 0.096
         ir3_sensor.header.stamp = rospy.Time.now()
-        ir3_sensor.header.frame_id = "map"
+        ir3_sensor.header.frame_id = "localization_data_topic"
         pub3.publish(ir3_sensor)
 
         ir4_sensor = PointStamped()
@@ -218,7 +218,7 @@ class Obstacle:
         ir4_sensor.point.y = float(self.ir_array[4][1])
         ir4_sensor.point.z = 0.096
         ir4_sensor.header.stamp = rospy.Time.now()
-        ir4_sensor.header.frame_id = "map"
+        ir4_sensor.header.frame_id = "localization_data_topic"
         pub4.publish(ir4_sensor)
 
         ir5_sensor = PointStamped()
@@ -226,7 +226,7 @@ class Obstacle:
         ir5_sensor.point.y = float(self.ir_array[5][1])
         ir5_sensor.point.z = 0.096
         ir5_sensor.header.stamp = rospy.Time.now()
-        ir5_sensor.header.frame_id = "map"
+        ir5_sensor.header.frame_id = "localization_data_topic"
         pub5.publish(ir5_sensor)
 
         ir6_sensor = PointStamped()
@@ -234,7 +234,7 @@ class Obstacle:
         ir6_sensor.point.y = float(self.ir_array[6][1])
         ir6_sensor.point.z = 0.096
         ir6_sensor.header.stamp = rospy.Time.now()
-        ir6_sensor.header.frame_id = "map"
+        ir6_sensor.header.frame_id = "localization_data_topic"
         pub6.publish(ir6_sensor)
 
         ir7_sensor = PointStamped()
@@ -242,7 +242,7 @@ class Obstacle:
         ir7_sensor.point.y = float(self.ir_array[7][1])
         ir7_sensor.point.z = 0.096
         ir7_sensor.header.stamp = rospy.Time.now()
-        ir7_sensor.header.frame_id = "map"
+        ir7_sensor.header.frame_id = "localization_data_topic"
         pub7.publish(ir7_sensor)
 
         ir8_sensor = PointStamped()
@@ -250,18 +250,18 @@ class Obstacle:
         ir8_sensor.point.y = float(self.ir_array[8][1])
         ir8_sensor.point.z = 0.096
         ir8_sensor.header.stamp = rospy.Time.now()
-        ir8_sensor.header.frame_id = "map"
+        ir8_sensor.header.frame_id = "localization_data_topic"
         pub8.publish(ir8_sensor)
 
 
-        ##### Remove this to not chk with the rest ##### 
+        ##### Remove this to not chk with the rest #####
         abs_front = PointStamped()
         abs_front.point.x = float(self.front_pose[0])
         abs_front.point.y = float(self.front_pose[1])
         abs_front.point.z = 0.096
 
         abs_front.header.stamp = rospy.Time.now()
-        abs_front.header.frame_id = "map"
+        abs_front.header.frame_id = "localization_data_topic"
         pub1.publish(abs_front)
 
         abs_back = PointStamped()
@@ -270,7 +270,7 @@ class Obstacle:
         abs_back.point.z = 0.096
 
         abs_back.header.stamp = rospy.Time.now()
-        abs_back.header.frame_id = "map"
+        abs_back.header.frame_id = "localization_data_topic"
         pub2.publish(abs_back)
 
 
