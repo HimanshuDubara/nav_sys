@@ -275,6 +275,6 @@ if __name__ == '__main__':
         pub8 = rospy.Publisher('/abs_ir8', PointStamped, queue_size=10)
 
         obs.read_all_ir()
-        obs.change_coordinate()
+        #obs.change_coordinate()
 
         obs.publish_values()
