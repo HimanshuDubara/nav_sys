@@ -156,7 +156,6 @@ class Obstacle:
         y = self.bot_pose.point.y
         transform_matrix = np.zeros((3,3))
         temp = np.zeros((3,1))
-        temp[2][0] = 1
         transform_matrix[0][0] = math.cos(theta)
         transform_matrix[0][1] = -math.sin(theta)
         transform_matrix[0][2] = x
@@ -169,7 +168,9 @@ class Obstacle:
         for i in range(1,8):
             temp[0][0] = self.ir_array[i][0]
             temp[1][0] = self.ir_array[i][1]
+            temp[2][0] = 1
             temp = np.dot(transform_matrix,temp)
+            temp = temp / temp[2][0]
             self.ir_array[i][0] = temp[0][0]
             self.ir_array[i][1] = temp[1][0]
 
