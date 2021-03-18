@@ -192,7 +192,7 @@ if __name__ == "__main__":
     odom_hz = int(r.get_hz('/' + odom_topic_name)[0])
     s.unregister()
 
-    rospy.Subscriber("noisy_odom", Odometry, subscribe_odom_data)
+    rospy.Subscriber("odom", Odometry, subscribe_odom_data)
     rospy.Subscriber("uwb_data_topic", uwb_data, subscribe_uwb_data)
 
     rospy.spin()
