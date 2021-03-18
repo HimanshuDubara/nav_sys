@@ -3,8 +3,8 @@
   <node pkg="map_server" name="map_server"  type="map_server" args="$(arg map_file)" />
 
   <include file="$(find pozyx_simulation)/launch/uwb_anchors_set.launch" />
-  <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find turtlebot3_navigation)/rviz/turtlebot3_navigation.rviz"/>  </node>
-
+  <node pkg="rviz" type="rviz" name="rviz" required="true"
+            args="-d $(find turtlebot3_navigation)/rviz/turtlebot3_navigation.rviz"/>
   <node pkg="pozyx_simulation" name="pozyx_simulation"  type="uwb_simulation.py" output="screen">
         <param name="modelstate_index" value="2" />
   </node>
