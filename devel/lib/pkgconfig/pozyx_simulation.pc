@@ -1,8 +1,0 @@
-prefix=/home/himanshu/nav_sys/devel
-
-Name: pozyx_simulation
-Description: Description of pozyx_simulation
-Version: 0.0.1
-Cflags: -I/home/himanshu/nav_sys/devel/include
-Libs: -L${prefix}/lib 
-Requires: 

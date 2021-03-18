@@ -1,4 +1,0 @@
-<launch>
-
-  <node name="detect_all" pkg="navigation_pkg" type="detect_all.py" />
-</launch>
