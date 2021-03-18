@@ -7,6 +7,8 @@ To get the noisy odometry running : rosrun advoard_localization noisy_odom.py
 
 Getting UWB sensors running: roslaunch pozyx_simulation uwb_simulation_initializing.launch
 
+Broadcast transform : rosrun learning_tf2 static_turtle_tf2_broadcaster.py odom 0 0 0 0 0 0 
+
 Getting Kalman Filters Running: roslaunch advoard_localization uwb_initial_pose.launch
 
 To check the localization info: rostopic echo /localization_data_topic
