@@ -82,15 +82,16 @@ class Obstacle:
         y = trans1[1]
         transform_matrix = np.zeros((3,3))
         temp = np.zeros((3,1))
-        transform_matrix[0][0] = math.cos(-eu[2])
-        transform_matrix[0][1] = -math.sin(-eu[2])
+        transform_matrix[0][0] = math.cos(eu[2])
+        transform_matrix[0][1] = -math.sin(eu[2])
         transform_matrix[0][2] = x
-        transform_matrix[1][0] = math.sin(-eu[2])
-        transform_matrix[1][1] = math.cos(-eu[2])
+        transform_matrix[1][0] = math.sin(eu[2])
+        transform_matrix[1][1] = math.cos(eu[2])
         transform_matrix[1][2] = y
         transform_matrix[2][0] = 0
         transform_matrix[2][1] = 0
         transform_matrix[2][2] = 1
+
         temp[0][0] = self.ir_1_dist.range
         temp[1][0] = 0
         temp[2][0] = 1
@@ -98,12 +99,285 @@ class Obstacle:
         temp = temp / temp[2][0]
 
         ir1_sensor = PointStamped()
-        ir1_sensor.point.x = float(    temp[0][0])
+        ir1_sensor.point.x = float(temp[0][0])
         ir1_sensor.point.y = float(temp[1][0])
         ir1_sensor.point.z = 0.096
         ir1_sensor.header.stamp = rospy.Time.now()
         ir1_sensor.header.frame_id = "map"
         pub1.publish(ir1_sensor)
+
+    def ir2_pose(self):
+        while(True):
+            try:
+                [trans1,rot1] =self.listener.lookupTransform('/odom', '/ir_2', rospy.Time(0))
+                break
+            except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
+                continue
+        eu = tf.transformations.euler_from_quaternion(rot1)
+        #theta = self.im.pose.pose.orientation.z
+
+        # theta = -(self.im.orientation.z) #Clockwise
+        x = trans1[0]
+        y = trans1[1]
+        transform_matrix = np.zeros((3,3))
+        temp = np.zeros((3,1))
+        transform_matrix[0][0] = math.cos(eu[2])
+        transform_matrix[0][1] = -math.sin(eu[2])
+        transform_matrix[0][2] = x
+        transform_matrix[1][0] = math.sin(eu[2])
+        transform_matrix[1][1] = math.cos(eu[2])
+        transform_matrix[1][2] = y
+        transform_matrix[2][0] = 0
+        transform_matrix[2][1] = 0
+        transform_matrix[2][2] = 1
+
+        temp[0][0] = self.ir_2_dist.range
+        temp[1][0] = 0
+        temp[2][0] = 1
+        temp = np.dot(transform_matrix,temp)
+        temp = temp / temp[2][0]
+
+        ir1_sensor = PointStamped()
+        ir1_sensor.point.x = float(temp[0][0])
+        ir1_sensor.point.y = float(temp[1][0])
+        ir1_sensor.point.z = 0.096
+        ir1_sensor.header.stamp = rospy.Time.now()
+        ir1_sensor.header.frame_id = "map"
+        pub2.publish(ir1_sensor)
+
+    def ir3_pose(self):
+        while(True):
+            try:
+                [trans1,rot1] =self.listener.lookupTransform('/odom', '/ir_3', rospy.Time(0))
+                break
+            except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
+                continue
+        eu = tf.transformations.euler_from_quaternion(rot1)
+        #theta = self.im.pose.pose.orientation.z
+
+        # theta = -(self.im.orientation.z) #Clockwise
+        x = trans1[0]
+        y = trans1[1]
+        transform_matrix = np.zeros((3,3))
+        temp = np.zeros((3,1))
+        transform_matrix[0][0] = math.cos(eu[2])
+        transform_matrix[0][1] = -math.sin(eu[2])
+        transform_matrix[0][2] = x
+        transform_matrix[1][0] = math.sin(eu[2])
+        transform_matrix[1][1] = math.cos(eu[2])
+        transform_matrix[1][2] = y
+        transform_matrix[2][0] = 0
+        transform_matrix[2][1] = 0
+        transform_matrix[2][2] = 1
+
+        temp[0][0] = self.ir_3_dist.range
+        temp[1][0] = 0
+        temp[2][0] = 1
+        temp = np.dot(transform_matrix,temp)
+        temp = temp / temp[2][0]
+
+        ir1_sensor = PointStamped()
+        ir1_sensor.point.x = float(temp[0][0])
+        ir1_sensor.point.y = float(temp[1][0])
+        ir1_sensor.point.z = 0.096
+        ir1_sensor.header.stamp = rospy.Time.now()
+        ir1_sensor.header.frame_id = "map"
+        pub3.publish(ir1_sensor)
+
+    def ir4_pose(self):
+        while(True):
+            try:
+                [trans1,rot1] =self.listener.lookupTransform('/odom', '/ir_4', rospy.Time(0))
+                break
+            except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
+                continue
+        eu = tf.transformations.euler_from_quaternion(rot1)
+        #theta = self.im.pose.pose.orientation.z
+
+        # theta = -(self.im.orientation.z) #Clockwise
+        x = trans1[0]
+        y = trans1[1]
+        transform_matrix = np.zeros((3,3))
+        temp = np.zeros((3,1))
+        transform_matrix[0][0] = math.cos(eu[2])
+        transform_matrix[0][1] = -math.sin(eu[2])
+        transform_matrix[0][2] = x
+        transform_matrix[1][0] = math.sin(eu[2])
+        transform_matrix[1][1] = math.cos(eu[2])
+        transform_matrix[1][2] = y
+        transform_matrix[2][0] = 0
+        transform_matrix[2][1] = 0
+        transform_matrix[2][2] = 1
+
+        temp[0][0] = self.ir_4_dist.range
+        temp[1][0] = 0
+        temp[2][0] = 1
+        temp = np.dot(transform_matrix,temp)
+        temp = temp / temp[2][0]
+
+        ir1_sensor = PointStamped()
+        ir1_sensor.point.x = float(temp[0][0])
+        ir1_sensor.point.y = float(temp[1][0])
+        ir1_sensor.point.z = 0.096
+        ir1_sensor.header.stamp = rospy.Time.now()
+        ir1_sensor.header.frame_id = "map"
+        pub4.publish(ir1_sensor)
+
+    def ir5_pose(self):
+        while(True):
+            try:
+                [trans1,rot1] =self.listener.lookupTransform('/odom', '/ir_5', rospy.Time(0))
+                break
+            except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
+                continue
+        eu = tf.transformations.euler_from_quaternion(rot1)
+        #theta = self.im.pose.pose.orientation.z
+
+        # theta = -(self.im.orientation.z) #Clockwise
+        x = trans1[0]
+        y = trans1[1]
+        transform_matrix = np.zeros((3,3))
+        temp = np.zeros((3,1))
+        transform_matrix[0][0] = math.cos(eu[2])
+        transform_matrix[0][1] = -math.sin(eu[2])
+        transform_matrix[0][2] = x
+        transform_matrix[1][0] = math.sin(eu[2])
+        transform_matrix[1][1] = math.cos(eu[2])
+        transform_matrix[1][2] = y
+        transform_matrix[2][0] = 0
+        transform_matrix[2][1] = 0
+        transform_matrix[2][2] = 1
+
+        temp[0][0] = self.ir_5_dist.range
+        temp[1][0] = 0
+        temp[2][0] = 1
+        temp = np.dot(transform_matrix,temp)
+        temp = temp / temp[2][0]
+
+        ir1_sensor = PointStamped()
+        ir1_sensor.point.x = float(temp[0][0])
+        ir1_sensor.point.y = float(temp[1][0])
+        ir1_sensor.point.z = 0.096
+        ir1_sensor.header.stamp = rospy.Time.now()
+        ir1_sensor.header.frame_id = "map"
+        pub5.publish(ir1_sensor)
+
+    def ir6_pose(self):
+        while(True):
+            try:
+                [trans1,rot1] =self.listener.lookupTransform('/odom', '/ir_6', rospy.Time(0))
+                break
+            except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
+                continue
+        eu = tf.transformations.euler_from_quaternion(rot1)
+        #theta = self.im.pose.pose.orientation.z
+
+        # theta = -(self.im.orientation.z) #Clockwise
+        x = trans1[0]
+        y = trans1[1]
+        transform_matrix = np.zeros((3,3))
+        temp = np.zeros((3,1))
+        transform_matrix[0][0] = math.cos(eu[2])
+        transform_matrix[0][1] = -math.sin(eu[2])
+        transform_matrix[0][2] = x
+        transform_matrix[1][0] = math.sin(eu[2])
+        transform_matrix[1][1] = math.cos(eu[2])
+        transform_matrix[1][2] = y
+        transform_matrix[2][0] = 0
+        transform_matrix[2][1] = 0
+        transform_matrix[2][2] = 1
+
+        temp[0][0] = self.ir_6_dist.range
+        temp[1][0] = 0
+        temp[2][0] = 1
+        temp = np.dot(transform_matrix,temp)
+        temp = temp / temp[2][0]
+
+        ir1_sensor = PointStamped()
+        ir1_sensor.point.x = float(temp[0][0])
+        ir1_sensor.point.y = float(temp[1][0])
+        ir1_sensor.point.z = 0.096
+        ir1_sensor.header.stamp = rospy.Time.now()
+        ir1_sensor.header.frame_id = "map"
+        pub6.publish(ir1_sensor)
+
+    def ir7_pose(self):
+        while(True):
+            try:
+                [trans1,rot1] =self.listener.lookupTransform('/odom', '/ir_7', rospy.Time(0))
+                break
+            except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
+                continue
+        eu = tf.transformations.euler_from_quaternion(rot1)
+        #theta = self.im.pose.pose.orientation.z
+
+        # theta = -(self.im.orientation.z) #Clockwise
+        x = trans1[0]
+        y = trans1[1]
+        transform_matrix = np.zeros((3,3))
+        temp = np.zeros((3,1))
+        transform_matrix[0][0] = math.cos(eu[2])
+        transform_matrix[0][1] = -math.sin(eu[2])
+        transform_matrix[0][2] = x
+        transform_matrix[1][0] = math.sin(eu[2])
+        transform_matrix[1][1] = math.cos(eu[2])
+        transform_matrix[1][2] = y
+        transform_matrix[2][0] = 0
+        transform_matrix[2][1] = 0
+        transform_matrix[2][2] = 1
+
+        temp[0][0] = self.ir_7_dist.range
+        temp[1][0] = 0
+        temp[2][0] = 1
+        temp = np.dot(transform_matrix,temp)
+        temp = temp / temp[2][0]
+
+        ir1_sensor = PointStamped()
+        ir1_sensor.point.x = float(temp[0][0])
+        ir1_sensor.point.y = float(temp[1][0])
+        ir1_sensor.point.z = 0.096
+        ir1_sensor.header.stamp = rospy.Time.now()
+        ir1_sensor.header.frame_id = "map"
+        pub7.publish(ir1_sensor)
+
+    def ir8_pose(self):
+        while(True):
+            try:
+                [trans1,rot1] =self.listener.lookupTransform('/odom', '/ir_8', rospy.Time(0))
+                break
+            except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
+                continue
+        eu = tf.transformations.euler_from_quaternion(rot1)
+        #theta = self.im.pose.pose.orientation.z
+
+        # theta = -(self.im.orientation.z) #Clockwise
+        x = trans1[0]
+        y = trans1[1]
+        transform_matrix = np.zeros((3,3))
+        temp = np.zeros((3,1))
+        transform_matrix[0][0] = math.cos(eu[2])
+        transform_matrix[0][1] = -math.sin(eu[2])
+        transform_matrix[0][2] = x
+        transform_matrix[1][0] = math.sin(eu[2])
+        transform_matrix[1][1] = math.cos(eu[2])
+        transform_matrix[1][2] = y
+        transform_matrix[2][0] = 0
+        transform_matrix[2][1] = 0
+        transform_matrix[2][2] = 1
+
+        temp[0][0] = self.ir_8_dist.range
+        temp[1][0] = 0
+        temp[2][0] = 1
+        temp = np.dot(transform_matrix,temp)
+        temp = temp / temp[2][0]
+
+        ir1_sensor = PointStamped()
+        ir1_sensor.point.x = float(temp[0][0])
+        ir1_sensor.point.y = float(temp[1][0])
+        ir1_sensor.point.z = 0.096
+        ir1_sensor.header.stamp = rospy.Time.now()
+        ir1_sensor.header.frame_id = "map"
+        pub8.publish(ir1_sensor)
 
 if __name__ == '__main__':
 
@@ -132,3 +406,10 @@ if __name__ == '__main__':
         pub8 = rospy.Publisher('/abs_ir8', PointStamped, queue_size=10)
 
         obs.ir1_pose()
+        obs.ir2_pose()
+        obs.ir3_pose()
+        obs.ir4_pose()
+        obs.ir5_pose()
+        obs.ir6_pose()
+        obs.ir7_pose()
+        obs.ir8_pose()
