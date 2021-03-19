@@ -382,34 +382,34 @@ class Obstacle:
 if __name__ == '__main__':
 
 
-    rospy.init_node('obstacle1',anonymous=True)
+    rospy.init_node('obstacle7',anonymous=True)
 
     obs = Obstacle()
 
     while not rospy.is_shutdown():
-        rospy.Subscriber('/sensor/ir_1', Range , obs.ir1_callback)
+        #rospy.Subscriber('/sensor/ir_1', Range , obs.ir1_callback)
         #rospy.Subscriber('/sensor/ir_2', Range , obs.ir2_callback)
         #rospy.Subscriber('/sensor/ir_3', Range , obs.ir3_callback)
         #rospy.Subscriber('/sensor/ir_4', Range , obs.ir4_callback)
         #rospy.Subscriber('/sensor/ir_5', Range , obs.ir5_callback)
         #rospy.Subscriber('/sensor/ir_6', Range , obs.ir6_callback)
-        #rospy.Subscriber('/sensor/ir_7', Range , obs.ir7_callback)
+        rospy.Subscriber('/sensor/ir_7', Range , obs.ir7_callback)
         #rospy.Subscriber('/sensor/ir_8', Range , obs.ir8_callback)
 
-        pub1 = rospy.Publisher('/abs_ir1', PointStamped, queue_size=10)
+        #pub1 = rospy.Publisher('/abs_ir1', PointStamped, queue_size=10)
         #pub2 = rospy.Publisher('/abs_ir2', PointStamped, queue_size=10)
         #pub3 = rospy.Publisher('/abs_ir3', PointStamped, queue_size=10)
         #pub4 = rospy.Publisher('/abs_ir4', PointStamped, queue_size=10)
         #pub5 = rospy.Publisher('/abs_ir5', PointStamped, queue_size=10)
         #pub6 = rospy.Publisher('/abs_ir6', PointStamped, queue_size=10)
-        #pub7 = rospy.Publisher('/abs_ir7', PointStamped, queue_size=10)
+        pub7 = rospy.Publisher('/abs_ir7', PointStamped, queue_size=10)
         #pub8 = rospy.Publisher('/abs_ir8', PointStamped, queue_size=10)
 
-        obs.ir1_pose()
+        #obs.ir1_pose()
         #obs.ir2_pose()
         #obs.ir3_pose()
         #obs.ir4_pose()
         #obs.ir5_pose()
         #obs.ir6_pose()
-        #obs.ir7_pose()
+        obs.ir7_pose()
         #obs.ir8_pose()
