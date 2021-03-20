@@ -1,4 +1,7 @@
 # nav_sys
+
+### File to launch all nodess - roslaunch navigation_pkg all_nodes.launch
+
 For Localization (Code is in main branch)
 
 Getting Turtlebot running: roslaunch turtlebot3_gazebo turtlebot3_world.launch

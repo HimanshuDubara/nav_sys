@@ -1,0 +1,13 @@
+<launch>
+
+ <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_world.launch" />
+
+ <include file="$(find pozyx_simulation)/launch/uwb_simulation_initializing.launch" />
+
+ <include file="$(find learning_tf2)/launch/static.launch" />
+
+ <include file="$(find advoard_localization)/launch/uwb_initial_pose.launch" />
+<!--   task6 world -->
+	<include file="$(find learning_tf2)/launch/detect.launch" />
+
+</launch>
