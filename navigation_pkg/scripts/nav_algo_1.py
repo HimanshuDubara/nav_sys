@@ -1,5 +1,4 @@
  #!/usr/bin/env python
-
 import rospy
 import numpy as np
 import math
@@ -58,6 +57,7 @@ e1 = 0
 e2 = 0
 
 def publish_goal():
+    global xg
     goal_point = PointStamped()
     goal_point.point.x = float(xg[0][0])
     goal_point.point.y = float(xg[1][0])
@@ -70,102 +70,102 @@ def localization_callback(msg):
     x[0][0] = msg.point.x
     x[1][0] = msg.point.y
     egtg = xg-x
-    #print(egtg)
+    print(egtg)
     e1 = np.linalg.norm(egtg)
-    #print(e1)
+    print(e1)
     kgtg = vo*(1-math.exp(-alpha*np.power(e1,2)))/e1
-    #print(kgtg)
+    print(kgtg)
     eogtg = -kgtg*egtg
     ugtg = -eogtg
-    #print(ugtg)
+    print(ugtg)
 
 def avoid_obs_1(msg):
     xo1[0][0] = msg.point.x
     xo1[1][0] = msg.point.y
     eao = xo1-x
     e21 = np.linalg.norm(eao)
-    #print(e2)
+    print(e2)
     kao = c/(e21*(np.power(e21,2)+epsilon))
-    #print(kao)
+    print(kao)
     uao1 = kao*eao
-    #print(uao)
+    print(uao)
 
 def avoid_obs_2(msg):
     xo2[0][0] = msg.point.x
     xo2[1][0] = msg.point.y
     eao = xo2-x
     e22 = np.linalg.norm(eao)
-    #print(e2)
+    print(e2)
     kao = c/(e22*(np.power(e22,2)+epsilon))
-    #print(kao)
+    print(kao)
     uao2 = kao*eao
-    #print(uao)
+    print(uao)
 
 def avoid_obs_3(msg):
     xo3[0][0] = msg.point.x
     xo3[1][0] = msg.point.y
     eao = xo3-x
     e23 = np.linalg.norm(eao)
-    #print(e2)
+    print(e2)
     kao = c/(e23*(np.power(e23,2)+epsilon))
-    #print(kao)
+    print(kao)
     uao3 = kao*eao
-    #print(uao)
+    print(uao)
 
 def avoid_obs_4(msg):
     xo4[0][0] = msg.point.x
     xo4[1][0] = msg.point.y
     eao = xo4-x
     e24 = np.linalg.norm(eao)
-    #print(e2)
+    print(e2)
     kao = c/(e24*(np.power(e24,2)+epsilon))
-    #print(kao)
+    print(kao)
     uao4 = kao*eao
-    #print(uao)
+    print(uao)
 
 def avoid_obs_5(msg):
     xo5[0][0] = msg.point.x
     xo5[1][0] = msg.point.y
     eao = xo5-x
     e25 = np.linalg.norm(eao)
-    #print(e2)
+    print(e2)
     kao = c/(e25*(np.power(e25,2)+epsilon))
-    #print(kao)
+    print(kao)
     uao5 = kao*eao
-    #print(uao)
+    print(uao)
 
 def avoid_obs_6(msg):
     xo6[0][0] = msg.point.x
     xo6[1][0] = msg.point.y
     eao = xo6-x
     e26 = np.linalg.norm(eao)
-    #print(e2)
+    print(e2)
     kao = c/(e26*(np.power(e26,2)+epsilon))
-    #print(kao)
+    print(kao)
     uao6 = kao*eao
-    #print(uao)
+    print(uao)
 
 def avoid_obs_7(msg):
     xo7[0][0] = msg.point.x
     xo7[1][0] = msg.point.y
     eao = xo7-x
     e27 = np.linalg.norm(eao)
-    #print(e2)
+    print(e2)
     kao = c/(e27*(np.power(e27,2)+epsilon))
-    #print(kao)
+    print(kao)
     uao7 = kao*eao
-    #print(uao)
+    print(uao)
 
 def avoid_obs_8(msg):
     xo8[0][0] = msg.point.x
     xo8[1][0] = msg.point.y
     eao = xo8-x
     e28 = np.linalg.norm(eao)
-    #print(e2)
+    print(e2)
     kao = c/(e28*(np.power(e28,2)+epsilon))
-    #print(kao)
+    print(kao)
     uao8 = kao*eao
-    #print(uao)
+    print(uao)
 
 
 def weighted_avoidance()
@@ -183,7 +183,7 @@ def weighted_avoidance()
     xo = (xo1-x)*dist_weight[0]*dir_weight[0] + (xo2-x)*dist_weight[1]*dir_weight[1] + (xo3-x)*dist_weight[2]*dir_weight[2] + (xo4-x)*dist_weight[3]*dir_weight[3] + (xo5-x)*dist_weight[4]*dir_weight[4] + (xo6-x)*dist_weight[5]*dir_weight[5] + (xo7-x)*dist_weight[6]*dir_weight[6] + (xo8-x)*dist_weight[7]*dir_weight[7]
     e2 = np.linalg.norm(xo)
     kao = c/(e2*(np.power(e2,2)+epsilon))
-    #print(kao)
+    print(kao)
     uao = kao*eao
 
 
@@ -225,7 +225,7 @@ def follow_wall():
     uv2 = uccw/np.linalg.norm(uccw)
     uv3 = uao/np.linalg.norm(uao)
 
-    #print(uccw)
+    print(uccw)
     dirc = np.dot(uv0.T,uv1)
     dircc = np.dot(uv0.T,uv2)
     print(dirc,dircc)
@@ -319,6 +319,7 @@ def publish_vel():
     vel_msg.angular.x = 0
     vel_msg.angular.y = 0
     vel_msg.angular.z = 0
+    print("Velocity Given: " + str(u[0][0]) + ", " + str(u[1][0]))
     velocity_publisher.publish(vel_msg)
 
 
@@ -338,7 +339,7 @@ if __name__ == "__main__":
         rospy.Subscriber('/abs_ir8',avoid_obs_8)
         velocity_publisher = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
         goal_publisher = rospy.Publisher('/goal',PointStamped,queue_size = 10)
-        publish_goal()
+        publish_goal()()
         weighted_avoidance()
         follow_wall()
         my_loop()

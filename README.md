@@ -18,4 +18,8 @@ To check the localization info: rostopic echo /localization_data_topic
 
 Run Teleoperation node to moev the bot around to check localization values: roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 
+<node pkg="navigation_pkg" type="nav_algo_1.py" name="code" output="screen" launch-prefix="gnome-terminal --command" />
+
+rosrun navigation_pkg nav_algo_1.py
+
 Random
