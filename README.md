@@ -1,4 +1,7 @@
 # nav_sys
+
+### File to launch all nodess - roslaunch navigation_pkg all_nodes.launch
+
 For Localization (Code is in main branch)
 
 Getting Turtlebot running: roslaunch turtlebot3_gazebo turtlebot3_world.launch
@@ -9,8 +12,14 @@ Broadcast transform : rosrun learning_tf2 static_turtle_tf2_broadcaster.py odom 
 
 Getting Kalman Filters Running: roslaunch advoard_localization uwb_initial_pose.launch
 
+Launching obstacle detector: roslaunch learning_tf2 detect.launch
+
 To check the localization info: rostopic echo /localization_data_topic
 
 Run Teleoperation node to moev the bot around to check localization values: roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+
+<node pkg="navigation_pkg" type="nav_algo_1.py" name="code" output="screen" launch-prefix="gnome-terminal --command" />
+
+rosrun navigation_pkg nav_algo_1.py
 
 Random
