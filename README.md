@@ -22,4 +22,13 @@ Run Teleoperation node to moev the bot around to check localization values: rosl
 
 rosrun navigation_pkg nav_algo_1.py
 
+<node name="detect1" pkg="learning_tf2" type="detect_all1.py" args="--test" respawn="true" />
+<node name="detect2" pkg="learning_tf2" type="detect_all2.py" args="--test" respawn="true" />
+<node name="detect3" pkg="learning_tf2" type="detect_all3.py" args="--test" respawn="true" />
+<node name="detect4" pkg="learning_tf2" type="detect_all4.py" args="--test" respawn="true" />
+<node name="detect5" pkg="learning_tf2" type="detect_all5.py" args="--test" respawn="true" />
+<node name="detect6" pkg="learning_tf2" type="detect_all6.py" args="--test" respawn="true" />
+<node name="detect7" pkg="learning_tf2" type="detect_all7.py" args="--test" respawn="true" />
+
+
 Random
