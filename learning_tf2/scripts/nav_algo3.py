@@ -266,7 +266,7 @@ if __name__ == '__main__':
     goal_publisher = rospy.Publisher('/goal',PointStamped,queue_size = 1)
     automaton = Automaton()
     while not rospy.is_shutdown():
-        rospy.Subscriber('/localization_data_topic',PointStamped, localization_callback)
+        rospy.Subscriber('/localization_data_topic', PointStamped, localization_callback)
         rospy.Subscriber('/abs_ir1', PointStamped, avoid_obs_1)
         rospy.Subscriber('/abs_ir2', PointStamped, avoid_obs_2)
         rospy.Subscriber('/abs_ir3', PointStamped, avoid_obs_3)
