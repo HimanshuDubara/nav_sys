@@ -1,0 +1,4 @@
+<launch>
+    <include file="$(find advoard_localization)/launch/uwb_initial_pose.launch" />
+    <include file="$(find learning_tf2)/launch/detect.launch" />
+</launch>

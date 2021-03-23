@@ -27,7 +27,7 @@ import random
 
 rospy.init_node('uwb_simulation', anonymous=True)
 #distances are publishing with uwb_data_topic
-pub = rospy.Publisher('uwb_data_topic', uwb_data, queue_size=10)
+pub = rospy.Publisher('uwb_data_topic', uwb_data, queue_size=1)
 
 def get_anchors_pos():
     max_anchor = 100

@@ -32,7 +32,7 @@ sigma = np.array([[1.0, 0.0, 0.0],[0.0, 1.0, 0.0],[0.0, 0.0, 1.0]])
 sensor_pos=[]
 
 rospy.init_node('kalman_filter_localization', anonymous=True)
-pub_ = rospy.Publisher('localization_data_topic', PointStamped, queue_size=10)
+pub_ = rospy.Publisher('localization_data_topic', PointStamped, queue_size=1)
 r = rospy.Rate(1)
 
 

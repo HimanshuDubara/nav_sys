@@ -401,7 +401,7 @@ if __name__ == '__main__':
         #pub3 = rospy.Publisher('/abs_ir3', PointStamped, queue_size=10)
         #pub4 = rospy.Publisher('/abs_ir4', PointStamped, queue_size=10)
         #pub5 = rospy.Publisher('/abs_ir5', PointStamped, queue_size=10)
-        pub6 = rospy.Publisher('/abs_ir6', PointStamped, queue_size=10)
+        pub6 = rospy.Publisher('/abs_ir6', PointStamped, queue_size=1)
         #pub7 = rospy.Publisher('/abs_ir7', PointStamped, queue_size=10)
         #pub8 = rospy.Publisher('/abs_ir8', PointStamped, queue_size=10)
 

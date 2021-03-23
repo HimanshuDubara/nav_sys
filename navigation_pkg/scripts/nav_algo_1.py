@@ -1,4 +1,4 @@
- #!/usr/bin/env python
+#! /usr/bin/env python
 
 import rospy
 import numpy as np
@@ -336,8 +336,8 @@ if __name__ == "__main__":
         rospy.Subscriber('/abs_ir6',avoid_obs_6)
         rospy.Subscriber('/abs_ir7',avoid_obs_7)
         rospy.Subscriber('/abs_ir8',avoid_obs_8)
-        velocity_publisher = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
-        goal_publisher = rospy.Publisher('/goal',PointStamped,queue_size = 10)
+        velocity_publisher = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
+        goal_publisher = rospy.Publisher('/goal',PointStamped,queue_size = 1)
         publish_goal()
         weighted_avoidance()
         follow_wall()

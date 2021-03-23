@@ -396,7 +396,7 @@ if __name__ == '__main__':
         #rospy.Subscriber('/sensor/ir_7', Range , obs.ir7_callback)
         #rospy.Subscriber('/sensor/ir_8', Range , obs.ir8_callback)
 
-        pub1 = rospy.Publisher('/abs_ir1', PointStamped, queue_size=10)
+        pub1 = rospy.Publisher('/abs_ir1', PointStamped, queue_size=1)
         #pub2 = rospy.Publisher('/abs_ir2', PointStamped, queue_size=10)
         #pub3 = rospy.Publisher('/abs_ir3', PointStamped, queue_size=10)
         #pub4 = rospy.Publisher('/abs_ir4', PointStamped, queue_size=10)
