@@ -3,11 +3,10 @@ import rospy
 import numpy as np
 import math
 from geometry_msgs.msg import PointStamped,Twist
+from enum import Enum
 
 
-rospy.init_node('nav_bot', anonymous = True)
-velocity_publisher = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
-goal_publisher = rospy.Publisher('/goal',PointStamped,queue_size = 1)
+
 
 
 x = np.zeros((2,1))
@@ -37,7 +36,8 @@ uao5 =  np.zeros((2,1))
 uao6 =  np.zeros((2,1))
 uao7 =  np.zeros((2,1))
 uao8 =  np.zeros((2,1))
-
+setfwc = 0
+setfwcc = 0
 uao = np.zeros((2,1))
 ucw = np.zeros((2,1))
 uccw = np.zeros((2,1))
@@ -239,267 +239,34 @@ def follow_wall():
     dirao = np.dot(uv0,uv3)
     print(dirao)
 
+##############################################################################
 
-#########################################################################################################################
-
-##===============================================
-## FINITE STATE MACHINES
-
-class FSM(object):
-	#''' Holds the states and transitions available,
-	#	executes current states main functions and transitions '''
-	def __init__(self, character):
-		self.char = character
-		self.states = {}
-		self.transitions = {}
-		self.curState = None
-		self.prevState = None ## USE TO PREVENT LOOPING 2 STATES FOREVER
-		self.trans = None
-
-	def AddTransition(self, transName, transition):
-		self.transitions[transName] = transition
-
-	def AddState(self, stateName, state):
-		self.states[stateName] = state
-
-	def SetState(self, stateName):
-		self.prevState = self.curState
-		self.curState = self.states[stateName]
-
-	def ToTransition(self, toTrans):
-		self.trans = self.transitions[toTrans]
-
-	def Execute(self):
-		if (self.trans):
-			self.curState.Exit()
-			self.trans.Execute()
-			self.SetState(self.trans.toState)
-			self.curState.Enter()
-			self.trans = None
-		self.curState.Execute()
+class States(Enum):
+    GTG = 1
+    FWC = 2
+    FWCC = 3
+    AO = 4
+    STP = 5
 
 
-FSM = FSM()
-
-
-
-##===============================================
-## TRANSITIONS
-class Transition(object):
-	''' Code executed when transitioning from one state to another '''
-	def __init__(self, toState):
-		self.toState = toState
-
-	def Execute(self):
-		print ("Transitioning...")
-
-
-##===============================================
-
-## STATES
-class State(object):
-	#''' The base template state which all others will inherit from  '''
-	def __init__(self, FSM):
-		global(FSM)
-
-	def Enter(self):
-		pass
-	def Execute (self):
-		pass
-	def Exit(self):
-		pass
-
-class GoToGoal(State):
-	#''' Going to the goal '''
-	def __init__(self, FSM):
-		super(GoToGoal, self).__init__(FSM)
-
-	def Enter(self):
-		print ("Entering GoToGoal")
-		#super(GoToGoal, self).Enter()
-
-	def Execute (self):
-		print ("GoToGoal")
-		u = ugtg
-        vel_msg = Twist()
-        vel_msg.linear.x = u[0][0]
-        vel_msg.linear.y = u[1][0]
-        vel_msg.linear.z = 0
-        vel_msg.angular.x = 0
-        vel_msg.angular.y = 0
-        vel_msg.angular.z = 0
-        velocity_publisher.publish(vel_msg)
-        if e1<= epsilon:
-            self.FSM.ToTransition("toStop")
-        else:
-            if e2<=delta and dirc>0:
-                self.FSM.ToTransition("toFWC")
-            if e2<=delta and dircc>0:
-                self.FSM.ToTransition("toFWCC")
-
-	def Exit(self):
-	       print ("Exiting GoToGoal")
-
-class FWC(State):
-	#''' State for vacuuming '''
-	def __init__(self, FSM):
-		super(FWC, self).__init__(FSM)
-
-
-	def Enter(self):
-		print ("Entering into FWC")
-		super(FWC, self).Enter()
-        dtfwc = e1
-
-	def Execute(self):
-		print ("FWC")
-        u = ucw
-        vel_msg = Twist()
-        vel_msg.linear.x = u[0][0]
-        vel_msg.linear.y = u[1][0]
-        vel_msg.linear.z = 0
-        vel_msg.angular.x = 0
-        vel_msg.angular.y = 0
-        vel_msg.angular.z = 0
-        velocity_publisher.publish(vel_msg)
-
-        if dirao>0 and e1<dtfwc:
-            self.FSM.ToTransition("toGoToGoal")
-        if e2 < delta/2:
-            self.FSM.ToTransition("toAO")
-
-	def Exit(self):
-		print ("Exiting FWC")
-        dtfwc =0
-
-class FWCC(State):
-	#''' State for vacuuming '''
-	def __init__(self, FSM):
-		super(FWCC, self).__init__(FSM)
-
-
-	def Enter(self):
-		print ("Entering into FWCC")
-		#super(FWCC, self).Enter()
-        dtfwcc = e1
-
-	def Execute(self):
-		print ("FWCC")
-        u = uccw
-        vel_msg = Twist()
-        vel_msg.linear.x = u[0][0]
-        vel_msg.linear.y = u[1][0]
-        vel_msg.linear.z = 0
-        vel_msg.angular.x = 0
-        vel_msg.angular.y = 0
-        vel_msg.angular.z = 0
-        velocity_publisher.publish(vel_msg)
-
-        if dirao>0 and e1<dtfwc:
-            self.FSM.ToTransition("toGoToGoal")
-        else:
-            if e2 <= delta/2:
-                self.FSM.ToTransition("toAO")
-
-
-	def Exit(self):
-		print ("Exiting FWCC")
-        dtfwcc = 0
-
-class AO(State):
-	#''' Going to the goal '''
-	def __init__(self, FSM):
-		super(AO, self).__init__(FSM)
-
-	def Enter(self):
-		print ("Entering AO")
-		#super(AO, self).Enter()
-
-	def Execute (self):
-		print ("AO")
-		u = uao
-        vel_msg = Twist()
-        vel_msg.linear.x = u[0][0]
-        vel_msg.linear.y = u[1][0]
-        vel_msg.linear.z = 0
-        vel_msg.angular.x = 0
-        vel_msg.angular.y = 0
-        vel_msg.angular.z = 0
-        velocity_publisher.publish(vel_msg)
-        if e1<= epsilon:
-            self.FSM.ToTransition("toStop")
-        else:
-            if e2 >=delta/2:
-                if dirc>0:
-                    self.FSM.ToTransition("toFWC")
-                else:
-                    self.FSM.ToTransition("toFWCC")
-
-	def Exit(self):
-		print ("Exiting AO")
-
-
-class Stop(State):
-	#''' State for Sleeping. Even robots get tired sometimes. :) '''
-	def __init__(self, FSM):
-		super(Stop, self).__init__(FSM)
-
-	def Enter(self):
-		print ("Entering Stop")
-		super(Sleep, self).Enter()
-
-	def Execute(self):
-		print ("Stop")
-        u = uao
-        vel_msg = Twist()
-        vel_msg.linear.x = 0
-        vel_msg.linear.y = 0
-        vel_msg.linear.z = 0
-        vel_msg.angular.x = 0
-        vel_msg.angular.y = 0
-        vel_msg.angular.z = 0
-        velocity_publisher.publish(vel_msg)
-
-
-	def Exit(self):
-		print ("Exiting Stop")
-
-
-
-#===============================================
-## IMPLEMENTATION
-
-Char = type("Char", (object,), {})
-
-
-class Nav_Bot(Char):
+class Automaton:
     def __init__(self):
-        self.FSM = FSM(self)
-        #STATES
-        self.FSM.AddState("GoToGoal", GoToGoal(self.FSM))
-        self.FSM.AddState("FWC", FWC(self.FSM))
-        self.FSM.AddState("FWCC", FWCC(self.FSM))
-        self.FSM.AddState("AO", AO(self.FSM))
-        self.FSM.AddState("Stop", Stop(self.FSM))
+        self.__state = States.GTG
 
-        #TRANSITIONS
-        self.FSM.AddTransition("toGoToGoal", Transition("GoToGoal"))
-        self.FSM.AddTransition("toFWC", Transition("FWC"))
-        self.FSM.AddTransition("toFWCC", Transition("FWCC"))
-        self.FSM.AddTransition("toAO", Transition("AO"))
-        self.FSM.AddTransition("toStop", Transition("Stop"))
-        self.FSM.SetState("GoToGoal")
+    def set_state(self, state):
+        self.__state = state
 
-    def Execute(self):
-        self.FSM.Execute()
+    def get_state(self):
+        return self.__state
 
-
-
-
+################################################################################
 if __name__ == '__main__':
-    r = Nav_Bot()
+    rospy.init_node('nav_bot', anonymous = True)
+    velocity_publisher = rospy.Publisher('/cmd_vel', Twist, queue_size = 1)
+    goal_publisher = rospy.Publisher('/goal',PointStamped,queue_size = 1)
+    automaton = Automaton()
     while not rospy.is_shutdown():
-        rospy.Subcriber('/localization_data_topic',localization_callback)
+        rospy.Subscriber('/localization_data_topic',localization_callback)
         rospy.Subscriber('/abs_ir1',avoid_obs_1)
         rospy.Subscriber('/abs_ir2',avoid_obs_2)
         rospy.Subscriber('/abs_ir3',avoid_obs_3)
@@ -511,6 +278,65 @@ if __name__ == '__main__':
         publish_goal()
         weighted_avoidance()
         follow_wall()
-        r.execute()
+        ############# Working of automaton ###############
 
-    print ('Exiting program...')
+        if automaton.get_state() == States.GTG:
+            if e1<= epsilon:
+                automaton.set_state(States.STP)
+            elif e2<=delta and dirc>0:
+                automaton.set_state(States.FWC)
+            elif e2<=delta and dircc>0:
+                automaton.set_state(States.FWCC)
+            else:
+                u = ugtg
+
+        elif automaton.get_state() == States.FWC:
+            if setfwc == 0:
+                dtfwc = e1
+                u = ucw
+                setfwc = 1
+            elif dirao>0 and e1<dtfwc:
+                automaton.set_state(States.GTG)
+                setfwc = 0
+            elif e2 < delta/2:
+                automaton.set_state(States.AO)
+                setfwc = 0
+            else:
+                u = ucw
+
+        elif automaton.get_state() == States.FWCC:
+            if setfwcc == 0:
+                dtfwcc = e1
+                u = uccw
+                setfwcc = 1
+            elif dirao>0 and e1<dtfwc:
+                automaton.set_state(States.GTG)
+                setfwcc = 0
+            elif e2 < delta/2:
+                automaton.set_state(States.AO)
+                setfwcc = 0
+            else:
+                u = uccw
+
+
+        elif automaton.get_state() == States.AO:
+            if e2 >=delta/2:
+                if dirc>0:
+                    automaton.set_state(States.FWC)
+                else:
+                    automaton.set_state(States.FWCC)
+            else:
+                u = uao
+
+        else:
+            u = np.zeros((2,1))
+
+######################## Publishing velocity ######################################
+        vel_msg = Twist()
+        vel_msg.linear.x = 0
+        vel_msg.linear.y = 0
+        vel_msg.linear.z = 0
+        vel_msg.angular.x = 0
+        vel_msg.angular.y = 0
+        vel_msg.angular.z = 0
+        velocity_publisher.publish(vel_msg)

@@ -397,7 +397,7 @@ if __name__ == '__main__':
         #rospy.Subscriber('/sensor/ir_8', Range , obs.ir8_callback)
 
         pub1 = rospy.Publisher('/abs_ir1', PointStamped, queue_size=1)
-<<<<<<< HEAD
+
         #pub2 = rospy.Publisher('/abs_ir2', PointStamped, queue_size=10)
         #pub3 = rospy.Publisher('/abs_ir3', PointStamped, queue_size=10)
         #pub4 = rospy.Publisher('/abs_ir4', PointStamped, queue_size=10)
@@ -405,7 +405,7 @@ if __name__ == '__main__':
         #pub6 = rospy.Publisher('/abs_ir6', PointStamped, queue_size=10)
         #pub7 = rospy.Publisher('/abs_ir7', PointStamped, queue_size=10)
         #pub8 = rospy.Publisher('/abs_ir8', PointStamped, queue_size=10)
-=======
+
         #pub2 = rospy.Publisher('/abs_ir2', PointStamped, queue_size=1)
         #pub3 = rospy.Publisher('/abs_ir3', PointStamped, queue_size=1)
         #pub4 = rospy.Publisher('/abs_ir4', PointStamped, queue_size=1)
@@ -413,7 +413,7 @@ if __name__ == '__main__':
         #pub6 = rospy.Publisher('/abs_ir6', PointStamped, queue_size=1)
         #pub7 = rospy.Publisher('/abs_ir7', PointStamped, queue_size=1)
         #pub8 = rospy.Publisher('/abs_ir8', PointStamped, queue_size=1)
->>>>>>> 73e2f9c597c2939bcfa572f146beb4475dd996c6
+
 
         obs.ir1_pose()
         #obs.ir2_pose()
