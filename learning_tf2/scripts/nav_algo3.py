@@ -22,8 +22,8 @@ xo7 = np.zeros((2,1))
 xo8 = np.zeros((2,1))
 
 ###Defining goal at -0.5,0.5####
-xg[0][0] = -0.5
-xg[1][0] = 0.5
+xg[0][0] = 0.5
+xg[1][0] = -0.7
 #############################
 
 ugtg = np.zeros((2,1))
@@ -36,24 +36,23 @@ uao5 =  np.zeros((2,1))
 uao6 =  np.zeros((2,1))
 uao7 =  np.zeros((2,1))
 uao8 =  np.zeros((2,1))
-setfwc = 0
-setfwcc = 0
+
 uao = np.zeros((2,1))
 ucw = np.zeros((2,1))
 uccw = np.zeros((2,1))
 
 alpha = 0.025
 g_mar = 0.05
-epsilon = -0.018
+epsilon = -0.008
 delta = 0.2
-vo= 1.0
+vo= 0
 dirc = 0
 dircc = 0
 dtfwc =0
 dtfwcc = 0
 dirao = 0
 c = 0.00472
-e21 = 0
+e21= 0
 e22 = 0
 e23 = 0
 e24 = 0
@@ -63,7 +62,6 @@ e27 = 0
 e28 = 0
 e1 = 0
 e2 = 0
-
 def publish_goal():
     goal_point = PointStamped()
     goal_point.point.x = float(xg[0][0])
@@ -84,7 +82,7 @@ def localization_callback(msg):
     #print(kgtg)
     eogtg = -kgtg*egtg
     ugtg = -eogtg
-    #print(ugtg)
+    print(ugtg)
 
 def avoid_obs_1(msg):
     xo1[0][0] = msg.point.x
@@ -92,7 +90,7 @@ def avoid_obs_1(msg):
     eao = xo1-x
     e21 = np.linalg.norm(eao)
     #print(e2)
-    kao = c/(e21*(np.power(e21,2)+epsilon))
+    kao = c#/(e21*(np.power(e21,2)+epsilon))
     #print(kao)
     uao1 = kao*eao
     #print(uao)
@@ -103,7 +101,7 @@ def avoid_obs_2(msg):
     eao = xo2-x
     e22 = np.linalg.norm(eao)
     #print(e2)
-    kao = c/(e22*(np.power(e22,2)+epsilon))
+    kao = c#/(e22*(np.power(e22,2)+epsilon))
     #print(kao)
     uao2 = kao*eao
     #print(uao)
@@ -114,7 +112,7 @@ def avoid_obs_3(msg):
     eao = xo3-x
     e23 = np.linalg.norm(eao)
     #print(e2)
-    kao = c/(e23*(np.power(e23,2)+epsilon))
+    kao = c#/(e23*(np.power(e23,2)+epsilon))
     #print(kao)
     uao3 = kao*eao
     #print(uao)
@@ -125,7 +123,7 @@ def avoid_obs_4(msg):
     eao = xo4-x
     e24 = np.linalg.norm(eao)
     #print(e2)
-    kao = c/(e24*(np.power(e24,2)+epsilon))
+    kao = c#/(e24*(np.power(e24,2)+epsilon))
     #print(kao)
     uao4 = kao*eao
     #print(uao)
@@ -136,7 +134,7 @@ def avoid_obs_5(msg):
     eao = xo5-x
     e25 = np.linalg.norm(eao)
     #print(e2)
-    kao = c/(e25*(np.power(e25,2)+epsilon))
+    kao = c#/(e25*(np.power(e25,2)+epsilon))
     #print(kao)
     uao5 = kao*eao
     #print(uao)
@@ -147,7 +145,7 @@ def avoid_obs_6(msg):
     eao = xo6-x
     e26 = np.linalg.norm(eao)
     #print(e2)
-    kao = c/(e26*(np.power(e26,2)+epsilon))
+    kao = c#/(e26*(np.power(e26,2)+epsilon))
     #print(kao)
     uao6 = kao*eao
     #print(uao)
@@ -158,7 +156,7 @@ def avoid_obs_7(msg):
     eao = xo7-x
     e27 = np.linalg.norm(eao)
     #print(e2)
-    kao = c/(e27*(np.power(e27,2)+epsilon))
+    kao = c#/(e27*(np.power(e27,2)+epsilon))
     #print(kao)
     uao7 = kao*eao
     #print(uao)
@@ -169,7 +167,7 @@ def avoid_obs_8(msg):
     eao = xo8-x
     e28 = np.linalg.norm(eao)
     #print(e2)
-    kao = c/(e28*(np.power(e28,2)+epsilon))
+    kao = c#/(e28*(np.power(e28,2)+epsilon))
     #print(kao)
     uao8 = kao*eao
     #print(uao)
@@ -178,20 +176,21 @@ def avoid_obs_8(msg):
 def weighted_avoidance():
     dist_weight = [math.exp(-e21),math.exp(-e22),math.exp(-e23),math.exp(-e24),math.exp(-e25),math.exp(-e26),math.exp(-e27),math.exp(-e28)]
 
-    dir_weight =   [(np.dot(-uao1,ugtg)/(np.linalg.norm(uao1)*np.linalg.norm(ugtg))) if (np.dot(-uao1,ugtg)/(np.linalg.norm(uao1)*np.linalg.norm(ugtg))) >= 0 else 0,
-                    (np.dot(-uao2,ugtg)/(np.linalg.norm(uao2)*np.linalg.norm(ugtg))) if (np.dot(-uao2,ugtg)/(np.linalg.norm(uao2)*np.linalg.norm(ugtg))) >= 0 else 0,
-                    (np.dot(-uao3,ugtg)/(np.linalg.norm(uao3)*np.linalg.norm(ugtg))) if (np.dot(-uao3,ugtg)/(np.linalg.norm(uao3)*np.linalg.norm(ugtg))) >= 0 else 0,
-                    (np.dot(-uao4,ugtg)/(np.linalg.norm(uao4)*np.linalg.norm(ugtg))) if (np.dot(-uao4,ugtg)/(np.linalg.norm(uao4)*np.linalg.norm(ugtg))) >= 0 else 0,
-                    (np.dot(-uao5,ugtg)/(np.linalg.norm(uao5)*np.linalg.norm(ugtg))) if (np.dot(-uao5,ugtg)/(np.linalg.norm(uao5)*np.linalg.norm(ugtg))) >= 0 else 0,
-                    (np.dot(-uao6,ugtg)/(np.linalg.norm(uao6)*np.linalg.norm(ugtg))) if (np.dot(-uao6,ugtg)/(np.linalg.norm(uao6)*np.linalg.norm(ugtg))) >= 0 else 0,
-                    (np.dot(-uao7,ugtg)/(np.linalg.norm(uao7)*np.linalg.norm(ugtg))) if (np.dot(-uao7,ugtg)/(np.linalg.norm(uao7)*np.linalg.norm(ugtg))) >= 0 else 0,
-                    (np.dot(-uao8,ugtg)/(np.linalg.norm(uao8)*np.linalg.norm(ugtg))) if (np.dot(-uao8,ugtg)/(np.linalg.norm(uao8)*np.linalg.norm(ugtg))) >= 0 else 0]
+    dir_weight =   [(np.dot(-uao1.transpose(),ugtg)/(np.linalg.norm(uao1.transpose())*np.linalg.norm(ugtg))) if (np.dot(-uao1.transpose(),ugtg)/(np.linalg.norm(uao1.transpose())*np.linalg.norm(ugtg))) >= 0 else 0,
+                    (np.dot(-uao2.transpose(),ugtg)/(np.linalg.norm(uao2.transpose())*np.linalg.norm(ugtg))) if (np.dot(-uao2.transpose(),ugtg)/(np.linalg.norm(uao2.transpose())*np.linalg.norm(ugtg))) >= 0 else 0,
+                    (np.dot(-uao3.transpose(),ugtg)/(np.linalg.norm(uao3.transpose())*np.linalg.norm(ugtg))) if (np.dot(-uao3.transpose(),ugtg)/(np.linalg.norm(uao3.transpose())*np.linalg.norm(ugtg))) >= 0 else 0,
+                    (np.dot(-uao4.transpose(),ugtg)/(np.linalg.norm(uao4.transpose())*np.linalg.norm(ugtg))) if (np.dot(-uao4.transpose(),ugtg)/(np.linalg.norm(uao4.transpose())*np.linalg.norm(ugtg))) >= 0 else 0,
+                    (np.dot(-uao5.transpose(),ugtg)/(np.linalg.norm(uao5.transpose())*np.linalg.norm(ugtg))) if (np.dot(-uao5.transpose(),ugtg)/(np.linalg.norm(uao5.transpose())*np.linalg.norm(ugtg))) >= 0 else 0,
+                    (np.dot(-uao6.transpose(),ugtg)/(np.linalg.norm(uao6.transpose())*np.linalg.norm(ugtg))) if (np.dot(-uao6.transpose(),ugtg)/(np.linalg.norm(uao6.transpose())*np.linalg.norm(ugtg))) >= 0 else 0,
+                    (np.dot(-uao7.transpose(),ugtg)/(np.linalg.norm(uao7.transpose())*np.linalg.norm(ugtg))) if (np.dot(-uao7.transpose(),ugtg)/(np.linalg.norm(uao7.transpose())*np.linalg.norm(ugtg))) >= 0 else 0,
+                    (np.dot(-uao8.transpose(),ugtg)/(np.linalg.norm(uao8.transpose())*np.linalg.norm(ugtg))) if (np.dot(-uao8.transpose(),ugtg)/(np.linalg.norm(uao8.transpose())*np.linalg.norm(ugtg))) >= 0 else 0]
+
 
     xo = (xo1-x)*dist_weight[0]*dir_weight[0] + (xo2-x)*dist_weight[1]*dir_weight[1] + (xo3-x)*dist_weight[2]*dir_weight[2] + (xo4-x)*dist_weight[3]*dir_weight[3] + (xo5-x)*dist_weight[4]*dir_weight[4] + (xo6-x)*dist_weight[5]*dir_weight[5] + (xo7-x)*dist_weight[6]*dir_weight[6] + (xo8-x)*dist_weight[7]*dir_weight[7]
     e2 = np.linalg.norm(xo)
-    kao = c/(e2*(np.power(e2,2)+epsilon))
+    kao = c#/(e2*(np.power(e2,2)+epsilon))
     #print(kao)
-    uao = kao*eao
+    uao = kao*xo
 
 
 
@@ -233,11 +232,11 @@ def follow_wall():
     uv3 = uao/np.linalg.norm(uao)
 
     #print(uccw)
-    dirc = np.dot(uv0,uv1)
-    dircc = np.dot(uv0,uv2)
-    print(dirc,dircc)
-    dirao = np.dot(uv0,uv3)
-    print(dirao)
+    dirc = np.dot(uv0.transpose(),uv1)
+    dircc = np.dot(uv0.transpose(),uv2)
+    #print(dirc,dircc)
+    dirao = np.dot(uv0.transpose(),uv3)
+    #print(dirao)
 
 ##############################################################################
 
@@ -266,15 +265,15 @@ if __name__ == '__main__':
     goal_publisher = rospy.Publisher('/goal',PointStamped,queue_size = 1)
     automaton = Automaton()
     while not rospy.is_shutdown():
-        rospy.Subscriber('/localization_data_topic',localization_callback)
-        rospy.Subscriber('/abs_ir1',avoid_obs_1)
-        rospy.Subscriber('/abs_ir2',avoid_obs_2)
-        rospy.Subscriber('/abs_ir3',avoid_obs_3)
-        rospy.Subscriber('/abs_ir4',avoid_obs_4)
-        rospy.Subscriber('/abs_ir5',avoid_obs_5)
-        rospy.Subscriber('/abs_ir6',avoid_obs_6)
-        rospy.Subscriber('/abs_ir7',avoid_obs_7)
-        rospy.Subscriber('/abs_ir8',avoid_obs_8)
+        rospy.Subscriber('/localization_data_topic',PointStamped,localization_callback)
+        rospy.Subscriber('/abs_ir1',PointStamped,avoid_obs_1)
+        rospy.Subscriber('/abs_ir2',PointStamped,avoid_obs_2)
+        rospy.Subscriber('/abs_ir3',PointStamped,avoid_obs_3)
+        rospy.Subscriber('/abs_ir4',PointStamped,avoid_obs_4)
+        rospy.Subscriber('/abs_ir5',PointStamped,avoid_obs_5)
+        rospy.Subscriber('/abs_ir6',PointStamped,avoid_obs_6)
+        rospy.Subscriber('/abs_ir7',PointStamped,avoid_obs_7)
+        rospy.Subscriber('/abs_ir8',PointStamped,avoid_obs_8)
         publish_goal()
         weighted_avoidance()
         follow_wall()
@@ -289,6 +288,9 @@ if __name__ == '__main__':
                 automaton.set_state(States.FWCC)
             else:
                 u = ugtg
+                print("GTG")
+                print(u)
+
 
         elif automaton.get_state() == States.FWC:
             if setfwc == 0:
@@ -303,6 +305,9 @@ if __name__ == '__main__':
                 setfwc = 0
             else:
                 u = ucw
+                print("FWC")
+                print(u)
+
 
         elif automaton.get_state() == States.FWCC:
             if setfwcc == 0:
@@ -317,6 +322,9 @@ if __name__ == '__main__':
                 setfwcc = 0
             else:
                 u = uccw
+                print("FWCC")
+                print(u)
+
 
 
         elif automaton.get_state() == States.AO:
@@ -327,14 +335,18 @@ if __name__ == '__main__':
                     automaton.set_state(States.FWCC)
             else:
                 u = uao
+                print("AO")
+                print(u)
+
 
         else:
             u = np.zeros((2,1))
-
+            print("STP")
+            print(u)
 ######################## Publishing velocity ######################################
         vel_msg = Twist()
-        vel_msg.linear.x = 0
-        vel_msg.linear.y = 0
+        vel_msg.linear.x = u[0][0]
+        vel_msg.linear.y = u[1][0]
         vel_msg.linear.z = 0
         vel_msg.angular.x = 0
         vel_msg.angular.y = 0

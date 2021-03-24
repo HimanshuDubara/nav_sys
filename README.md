@@ -12,7 +12,7 @@ Broadcast transform : rosrun learning_tf2 static_turtle_tf2_broadcaster.py odom 
 
 Getting Kalman Filters Running: roslaunch advoard_localization uwb_initial_pose.launch
 
-Launching obstacle detector: roslaunch learning_tf2 detect.launch
+    Launching obstacle detector: roslaunch learning_tf2 detect.launch
 
 To check the localization info: rostopic echo /localization_data_topic
 

@@ -1,9 +1,7 @@
-<<<<<<< HEAD
+
 #! /usr/bin/env python
 
-=======
- #!/usr/bin/env python
->>>>>>> 322289d41c1425211237ebd56f456f3c10ccde34
+
 import rospy
 import numpy as np
 import math
@@ -333,24 +331,22 @@ if __name__ == "__main__":
     while not rospy.is_shutdown():
 
         rospy.init_node('sm_bot')
-        rospy.Subcriber('/localization_data_topic',localization_callback)
-        rospy.Subscriber('/abs_ir1',avoid_obs_1)
-        rospy.Subscriber('/abs_ir2',avoid_obs_2)
-        rospy.Subscriber('/abs_ir3',avoid_obs_3)
-        rospy.Subscriber('/abs_ir4',avoid_obs_4)
-        rospy.Subscriber('/abs_ir5',avoid_obs_5)
-        rospy.Subscriber('/abs_ir6',avoid_obs_6)
-        rospy.Subscriber('/abs_ir7',avoid_obs_7)
-        rospy.Subscriber('/abs_ir8',avoid_obs_8)
-<<<<<<< HEAD
+        rospy.Subcriber('/localization_data_topic',PointStamped,localization_callback)
+        rospy.Subscriber('/abs_ir1',PointStamped,avoid_obs_1)
+        rospy.Subscriber('/abs_ir2',PointStamped,avoid_obs_2)
+        rospy.Subscriber('/abs_ir3',PointStamped,avoid_obs_3)
+        rospy.Subscriber('/abs_ir4',PointStamped,avoid_obs_4)
+        rospy.Subscriber('/abs_ir5',PointStamped,avoid_obs_5)
+        rospy.Subscriber('/abs_ir6',PointStamped,avoid_obs_6)
+        rospy.Subscriber('/abs_ir7',PointStamped,avoid_obs_7)
+        rospy.Subscriber('/abs_ir8',PointStamped,avoid_obs_8)
+
         velocity_publisher = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
         goal_publisher = rospy.Publisher('/goal',PointStamped,queue_size = 1)
         publish_goal()
-=======
         velocity_publisher = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
         goal_publisher = rospy.Publisher('/goal',PointStamped,queue_size = 10)
         publish_goal()()
->>>>>>> 322289d41c1425211237ebd56f456f3c10ccde34
         weighted_avoidance()
         follow_wall()
         my_loop()
