@@ -123,102 +123,102 @@ class Robot:
     def localization_callback(self,msg):
         self.x[0][0] = msg.point.x
         self.x[1][0] = msg.point.y
-        egtg = xg-x
+        egtg = self.xg-self.x
                 #print(egtg)
         self.e1 = np.linalg.norm(egtg)
                 #print(e1)
-        kgtg = vo*(1-math.exp(-alpha*np.power(e1,2)))/e1
+        kgtg = self.vo*(1-math.exp(-self.alpha*np.power(self.e1,2)))/self.e1
                 #print(kgtg)
         eogtg = -kgtg*egtg
         self.ugtg = -eogtg
-        print(ugtg)
+        print(self.ugtg)
 
     def avoid_obs_1(self,msg):
         self.xo1[0][0] = msg.point.x
         self.xo1[1][0] = msg.point.y
-        eao = xo1-x
+        eao = self.xo1-self.x
         self.e21 = np.linalg.norm(eao)
                 #print(e2)
         kao = self.c#/(e21*(np.power(e21,2)+epsilon))
                 #print(kao)
-        self.uao1 = kao*eao
+        self.uao1 = -kao*eao
                 #print(uao)
 
     def avoid_obs_2(self,msg):
         self.xo2[0][0] = msg.point.x
         self.xo2[1][0] = msg.point.y
-        eao = xo2-x
+        eao = self.xo2-self.x
         self.e22 = np.linalg.norm(eao)
                 #print(e2)
         kao = self.c#/(e22*(np.power(e22,2)+epsilon))
                 #print(kao)
-        self.uao2 = kao*eao
+        self.uao2 = -kao*eao
                 #print(uao)
 
     def avoid_obs_3(self,msg):
         self.xo3[0][0] = msg.point.x
         self.xo3[1][0] = msg.point.y
-        eao = xo3-x
+        eao = self.xo3-self.x
         self.e23 = np.linalg.norm(eao)
                 #print(e2)
         kao = self.c#/(e23*(np.power(e23,2)+epsilon))
                 #print(kao)
-        self.uao3 = kao*eao
+        self.uao3 = -kao*eao
                 #print(uao)
 
     def avoid_obs_4(self,msg):
         self.xo4[0][0] = msg.point.x
         self.xo4[1][0] = msg.point.y
-        eao = xo4-x
+        eao = self.xo4-self.x
         self.e24 = np.linalg.norm(eao)
                 #print(e2)
         kao = self.c#/(e24*(np.power(e24,2)+epsilon))
                 #print(kao)
-        self.uao4 = kao*eao
+        self.uao4 = -kao*eao
                 #print(uao)
 
     def avoid_obs_5(self,msg):
         self.xo5[0][0] = msg.point.x
         self.xo5[1][0] = msg.point.y
-        eao = xo5-x
+        eao = self.xo5-self.x
         self.e25 = np.linalg.norm(eao)
                 #print(e2)
         kao = self.c#/(e25*(np.power(e25,2)+epsilon))
                 #print(kao)
-        self.uao5 = kao*eao
+        self.uao5 = -kao*eao
                 #print(uao)
 
     def avoid_obs_6(self,msg):
         self.xo6[0][0] = msg.point.x
         self.xo6[1][0] = msg.point.y
-        eao = xo6-x
+        eao = self.xo6-self.x
         self.e26 = np.linalg.norm(eao)
                 #print(e2)
         kao = self.c#/(e26*(np.power(e26,2)+epsilon))
                 #print(kao)
-        self.uao6 = kao*eao
+        self.uao6 = -kao*eao
                 #print(uao)
 
     def avoid_obs_7(self,msg):
         self.xo7[0][0] = msg.point.x
         self.xo7[1][0] = msg.point.y
-        eao = xo7-x
+        eao = self.xo7-self.x
         self.e27 = np.linalg.norm(eao)
                 #print(e2)
         kao = self.c#/(e27*(np.power(e27,2)+epsilon))
                 #print(kao)
-        self.uao7 = kao*eao
+        self.uao7 = -kao*eao
                 #print(uao)
 
     def avoid_obs_8(self,msg):
         self.xo8[0][0] = msg.point.x
         self.xo8[1][0] = msg.point.y
-        eao = xo8-x
+        eao = self.xo8-self.x
         self.e28 = np.linalg.norm(eao)
                 #print(e2)
         kao = self.c#/(e28*(np.power(e28,2)+epsilon))
                 #print(kao)
-        self.uao8 = kao*eao
+        self.uao8 = -kao*eao
                 #print(uao)
 
     def weighted_avoidance(self):
@@ -238,7 +238,7 @@ class Robot:
         self.e2 = np.linalg.norm(self.xo)
         kao = self.c#/(e2*(np.power(e2,2)+epsilon))
                 #print(kao)
-        self.uao = kao*self.xo
+        self.uao = -kao*self.xo
 
     def follow_wall(self):
         t = np.array([[0,1],[-1,0]])

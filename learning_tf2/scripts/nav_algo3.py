@@ -265,6 +265,7 @@ if __name__ == '__main__':
     goal_publisher = rospy.Publisher('/goal',PointStamped,queue_size = 1)
     automaton = Automaton()
     while not rospy.is_shutdown():
+<<<<<<< HEAD
         rospy.Subscriber('/localization_data_topic',PointStamped,localization_callback)
         rospy.Subscriber('/abs_ir1',PointStamped,avoid_obs_1)
         rospy.Subscriber('/abs_ir2',PointStamped,avoid_obs_2)
@@ -274,6 +275,17 @@ if __name__ == '__main__':
         rospy.Subscriber('/abs_ir6',PointStamped,avoid_obs_6)
         rospy.Subscriber('/abs_ir7',PointStamped,avoid_obs_7)
         rospy.Subscriber('/abs_ir8',PointStamped,avoid_obs_8)
+=======
+        rospy.Subscriber('/localization_data_topic', PointStamped, localization_callback)
+        rospy.Subscriber('/abs_ir1', PointStamped, avoid_obs_1)
+        rospy.Subscriber('/abs_ir2', PointStamped, avoid_obs_2)
+        rospy.Subscriber('/abs_ir3', PointStamped, avoid_obs_3)
+        rospy.Subscriber('/abs_ir4', PointStamped, avoid_obs_4)
+        rospy.Subscriber('/abs_ir5', PointStamped, avoid_obs_5)
+        rospy.Subscriber('/abs_ir6', PointStamped, avoid_obs_6)
+        rospy.Subscriber('/abs_ir7', PointStamped, avoid_obs_7)
+        rospy.Subscriber('/abs_ir8', PointStamped, avoid_obs_8)
+>>>>>>> 7e37dafd8027547ae6370498b1e36f3d0f4b1405
         publish_goal()
         weighted_avoidance()
         follow_wall()
